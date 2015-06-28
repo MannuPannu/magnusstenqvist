@@ -3,6 +3,11 @@
 var express = require('express');
 var fs      = require('fs');
 var path = require('path');
+var mongoose = require('mongoose');
+
+process.env.NODE_ENV = process.env.OPENSHIFT_NODEJS_PORT ? "production" : "development";
+
+var config = require('./backend/config/config');
 
 /**
  *  Define the sample application.
@@ -33,19 +38,6 @@ var SampleApp = function() {
             console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
             self.ipaddress = "127.0.0.1";
         };
-    };
-
-
-    /**
-     *  Populate the cache.
-     */
-    self.populateCache = function() {
-        if (typeof self.zcache === "undefined") {
-            self.zcache = { 'index.html': '' };
-        }
-
-        //  Local cache for static content.
-        self.zcache['index.html'] = fs.readFileSync('./index.html');
     };
 
 
@@ -114,16 +106,34 @@ var SampleApp = function() {
      *  the handlers.
      */
     self.initializeServer = function() {
-        self.createRoutes();
         self.app = express();
 
-		self.app.use(express.static(path.join(self.appRoot, 'app')));
-		self.app.use(express.static(path.join(self.appRoot, '')));
+		//config 
+		var modelsPath = path.join(__dirname, 'backend/models');
+		fs.readdirSync(modelsPath).forEach(function (file) {
+		
+			if(/(.*)\.(js$|coffe$)/.test(file)) {
+					require(modelsPath + '/' + file);
+			}		
+		});
 
-        // //  Add handlers for the app (from the routes).
-        // for (var r in self.routes) {
-        //     self.app.get(r, self.routes[r]);
-        // }
+		require('./backend/config/passport');
+
+		//Config mongoose
+		mongoose.connect(config.mongo.uri);
+
+		var db = mongoose.connection;
+		db.on('error', console.error.bind(console, 'connection error:'));
+
+		db.once('open', function(callback) {
+				console.log("connection open");
+		});
+
+		//add some dummy data
+		require('./backend/config/dummydata');
+
+		//Config express
+		require('./backend/config/express')(self.app, self.appRoot);
     };
 
 
@@ -132,7 +142,6 @@ var SampleApp = function() {
      */
     self.initialize = function() {
         self.setupVariables();
-        self.populateCache();
         self.setupTerminationHandlers();
 
         // Create the express server and routes.
@@ -144,6 +153,7 @@ var SampleApp = function() {
      *  Start the server (starts up the sample application).
      */
     self.start = function() {
+
         //  Start the app on the specific interface (and port).
         self.app.listen(self.port, self.ipaddress, function() {
             console.log('%s: Node server started on %s:%d ...',
