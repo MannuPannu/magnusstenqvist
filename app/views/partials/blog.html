@@ -1,0 +1,14 @@
+<div ng-repeat="blogEntry in blogEntries">
+    <h3>
+        <span ng-bind="blogEntry.headerText"></span>
+    </h3>
+    <span ng-bind="blogEntry.dateText"></span><br />
+    <span ng-bind-html="blogEntry.contentText"></span><br />
+    <hr />
+</div>
+<div hljs>
+    function foobar() {
+        return ""; 
+    }
+</div>
+

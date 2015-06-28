@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-inner">
+        <a class="navbar-brand navbar-right" style="margin-right: 15px;" href="#">magnusstenqvist.se</a>	
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation"</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+			
+        </div>
+        <div class="collapse navbar-collapse" id="navbar" ng-controller="navbarController" >
+            <ul class="nav navbar-nav">
+                <li ng-class="{active: isActive('/main/blog')}"><a ui-sref="main.blog">Blog</a></li>
+                <li ng-class="{active: isActive('/main/games')}"><a ui-sref="main.games">Games</a></li>
+				<li ng-class="{active: isActive('/main/about')}"><a ui-sref="main.about">About</a></li>
+				<li ng-if="user"><a href="#" ng-click="logout()">Log out</a><li>
+				<li ng-if="!user"><a href="#" ui-sref="main.login">Log in</a><li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div style="margin: 25px; width: 55%">
+    <div ui-view />
+</div>
+
