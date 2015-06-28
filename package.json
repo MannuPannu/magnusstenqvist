@@ -31,6 +31,6 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "postinstall": "export HOME=/var/lib/openshift/[instance-id]/app-root/runtime/repo; ./node_modules/bower/bin/bower install"
+  "build": "HOME=$HOME/app-root/runtime bower install --config.interactive=false",
   }
 }
