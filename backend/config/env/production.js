@@ -3,9 +3,7 @@
 module.exports = {
     env: 'production',
     mongo: {
-        uri: process.env.CUSTOMCONNSTR_MONGOLAB_URI ||
-            process.env.MONGOHQ_URL ||
-            'mongodb://localhost/ordosprod',
+		uri: 'mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/' 
         options: {
             server: {
                 auto_reconnect: true,
