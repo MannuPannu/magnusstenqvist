@@ -11,19 +11,6 @@ module.exports = function(router, passport) {
 		api.GetBlogEntries(req, res);
 	});
 
-	// router.post('/register', function(req, res) {
-    //
-	// 	Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-	// 		if (err) {
-	// 			return res.redirect('/');
-	// 		}
-    //
-	// 		passport.authenticate('local')(req, res, function () {
-	// 			res.redirect('/');
-	// 		});
-	// 	});
-	// });
-
 
 	router.post('/login', passport.authenticate('local'), function(req, res) {
 		res.redirect('/');
