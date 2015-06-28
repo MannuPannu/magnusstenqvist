@@ -30,7 +30,8 @@
   "bundleDependencies": [],
   "private": true,
   "scripts": {
-  	"build": "HOME=$HOME/app-root/runtime bower install"
+  	"start": "node server.js",
+  	"build": "HOME=$HOME/app-root/runtime bower install --config.interactive=false"
   },
   "main": "server.js"
 }
