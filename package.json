@@ -29,8 +29,8 @@
   "devDependencies": {},
   "bundleDependencies": [],
   "private": true,
-  "main": "server.js",
   "scripts": {
-  "build": "HOME=$HOME/app-root/runtime bower install --config.interactive=false",
-  }
+  	"build": "HOME=$HOME/app-root/runtime bower install"
+  },
+  "main": "server.js"
 }
