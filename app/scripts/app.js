@@ -1,7 +1,7 @@
-define(['angular', 'navbarController', 'blogController', 'angularUiRouter'], 
-		function(angular, navbarController, blogController, angularUiRouter) {
+define(['angular', 'navbarController', 'blogController', 'angularUiRouter', 'textAngular'], 
+		function(angular, navbarController, blogController, angularUiRouter, textAngular) {
 
-var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize']);
+var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular']);
 
 		app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 

@@ -8,6 +8,9 @@ require.config({
         angularHighlightjs: '../../bower_components/angular-highlightjs/angular-highlightjs.min',
         highlightjs: '../../bower_components/highlightjs/highlight.pack',
 		ngSanitize: '../../bower_components/angular-sanitize/angular-sanitize.min',
+		// textAngularRangy: '../../bower_components/textAngular/dist/textAngular-rangy.min',
+		textAngular: '../../bower_components/textAngular/dist/textAngular.min',
+		textAngularSanitize: '../../bower_components/textAngular/dist/textAngular-sanitize.min',
 		blogController: 'controllers/blogController',
 		navbarController: 'controllers/navbarController'
 	 },
@@ -26,13 +29,24 @@ require.config({
         },
 		'ngSanitize': {
 			deps: ['angular']
+		},
+		'textAngularSanitize': {
+			deps: ['angular'],
+			exports: 'textAngularSanitize'
+		},
+		// textAngularRangy: {
+		// 	deps: ['angular']
+		// },
+		'textAngular': {
+			deps: ['angular', /*'textAngularRangy'*/, 'textAngularSanitize'],
+			exports: 'textAngular'
 		}
 	},
 	priority: ["angular"]
 
 });
 
-require(['angular','jquery', 'bootstrapJs','ngSanitize', 'angularHighlightjs',
+require(['angular','jquery', 'bootstrapJs','ngSanitize', 'angularHighlightjs', /*'textAngularRangy',*/
 		'app'], function (angular) {
 
 			angular.element(document.getElementsByTagName('html')[0]);

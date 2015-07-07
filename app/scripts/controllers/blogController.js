@@ -4,7 +4,8 @@ define("blogController", [],function () {
 
 			$scope.message = "Welcome to my new web site!";
 			$scope.blogEntries = [];
-			$scope.showList = true;
+
+			$scope.postHtml = "";
 
 			$http.get('/loggedin').success(function(user) {
 				$scope.user  = user;		
@@ -14,9 +15,17 @@ define("blogController", [],function () {
 				$scope.blogEntries = blogEntries;
 			});
 
-			$scope.createPost = function() {
+			$scope.openCreatePostView = function() {
 				$state.transitionTo("main.blog.createpost");
-				$showList = false;
+			};
+
+			$scope.cancelCreatePost = function() {
+				$state.transitionTo("main.blog.itemlist");		
+			};
+
+			$scope.createPost = function() {
+				//Save html to database if user valid!
+				console.log($scope.postHtml);
 			};
 
 			$scope.deletePost = function() {
