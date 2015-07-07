@@ -17,7 +17,7 @@ User.find({}).remove(function() {
 BlogEntry.find({}).remove(function() {
 	
 	BlogEntry.create({
-		headerText: 'First go with passportjs fur alles',
+		headerText: 'First go with passportjs fur alles sehr gut',
 		dateText: '2015-04-13',
 		contentText: 'Starting to add passportjs via this excellent <a href="http://mherman.org/blog/2015/01/31/local-authentication-with-passport-and-express-4/#.VSvnEhOUd9h">tutorial.</a>'		
 	});

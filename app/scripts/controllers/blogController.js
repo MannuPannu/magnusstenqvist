@@ -11,9 +11,13 @@ define("blogController", [],function () {
 				$scope.user  = user;		
 			});
 
-			$http.get('/api/blogentries', {cache: true}).success(function (blogEntries) {
-				$scope.blogEntries = blogEntries;
-			});
+			$scope.populateItemList = function() {
+				$http.get('/api/blogentries', {cache: true}).success(function (blogEntries) {
+					$scope.blogEntries = blogEntries;
+				});
+			};
+
+			$scope.populateItemList();
 
 			$scope.openCreatePostView = function() {
 				$state.transitionTo("main.blog.createpost");
@@ -24,8 +28,12 @@ define("blogController", [],function () {
 			};
 
 			$scope.createPost = function() {
-				//Save html to database if user valid!
-				console.log($scope.postHtml);
+
+				$http.post('/api/createblogentry', {headerText: $scope.postHeader,
+					contentText: $scope.postHtml, dateText: "2025-02-03"}).success(function() {
+					$state.transitionTo("main.blog.itemlist");
+					$scope.populateItemList();
+				});
 			};
 
 			$scope.deletePost = function() {

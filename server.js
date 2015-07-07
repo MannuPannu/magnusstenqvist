@@ -129,9 +129,6 @@ var SampleApp = function() {
 				console.log("connection open");
 		});
 
-		//add some dummy data
-		require('./backend/config/dummydata');
-
 		//Config express
 		require('./backend/config/express')(self.app, self.appRoot);
     };

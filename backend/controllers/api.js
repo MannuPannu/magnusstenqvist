@@ -15,3 +15,12 @@ exports.GetBlogEntries = function(req, res) {
 			});
 };
 
+exports.CreateBlogEntry = function(data) {
+
+	var blogEntry = new BlogEntry(data);	
+
+	blogEntry.save(function(err) {
+	 	if(err) return err;
+	 });
+};
+
