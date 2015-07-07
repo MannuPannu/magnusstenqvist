@@ -1,11 +1,10 @@
 define("blogController", [],function () {
 		
-		var blogController = function ($scope, $http, $state) {
+		var blogController = function ($scope, $http, $state, _) {
+
+			$scope.blogEntries = $scope.blogEntries || [];
 
 			$scope.message = "Welcome to my new web site!";
-			$scope.blogEntries = [];
-
-			$scope.postHtml = "";
 
 			$http.get('/loggedin').success(function(user) {
 				$scope.user  = user;		
@@ -29,16 +28,27 @@ define("blogController", [],function () {
 
 			$scope.createPost = function() {
 
-				$http.post('/api/createblogentry', {headerText: $scope.postHeader,
-					contentText: $scope.postHtml, dateText: "2025-02-03"}).success(function() {
-					$state.transitionTo("main.blog.itemlist");
-					$scope.populateItemList();
-				});
+				var blogEntry = {headerText: $scope.postHeader,
+					contentText: $scope.postHtml, dateText: "2025-02-03"};
+
+				 $http.post('/api/createblogentry', blogEntry).success(function() {
+				 			
+				 	 $scope.blogEntries.push(blogEntry);
+				 	 $state.go("main.blog.itemlist");
+
+				 });
 			};
 
-			$scope.deletePost = function() {
+			$scope.deletePost = function(blogEntry) {
 				if(confirm("Are you sure you want to delete this post? It cannot be undone")){
-					console.log("Deleted!");		
+					$http.post('/api/deleteblogentry', blogEntry).success(function() {
+
+						$scope.blogEntries = _.reject($scope.blogEntries, function(e) {
+							return e._id === blogEntry._id;
+						});
+
+						$state.go("main.blog.itemlist");
+					});
 				}
 			};
 		}

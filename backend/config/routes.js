@@ -29,6 +29,23 @@ module.exports = function(router, passport) {
 		}
 	});
 
+	router.post('/api/deleteblogentry', function(req, res) {
+
+		if(req.isAuthenticated()){
+				
+			var err = api.DeleteBlogEntry(req.body);
+
+			if(err) {
+				res.send(400);
+			}
+			else {
+				res.send(200);
+			}
+		}
+		else {
+			res.send(400);
+		}
+	});
 	router.post('/login', passport.authenticate('local'), function(req, res) {
 		res.redirect('/');
 	});

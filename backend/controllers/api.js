@@ -24,3 +24,15 @@ exports.CreateBlogEntry = function(data) {
 	 });
 };
 
+exports.DeleteBlogEntry = function(entry) {
+
+	var id = entry._id;
+
+	BlogEntry.findById(id, function(err, blogEntry) {
+		if(blogEntry) {
+			blogEntry.remove(function(err) {
+				if(err) return err;
+			});
+		}		
+	});
+};

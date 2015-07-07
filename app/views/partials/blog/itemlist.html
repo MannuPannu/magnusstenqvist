@@ -3,14 +3,10 @@
 	<button ng-click="openCreatePostView()" class="btn btn-primary">Create post</button>
 </div>
 
-<div ng-show="showCreatePostDiv">
-	Create the post here !
-	</div>
-
 <div ng-repeat="blogEntry in blogEntries">
     <h3>
 		<span ng-bind="blogEntry.headerText"></span>
-		<button ng-if="user" ng-click="deletePost()" class="btn btn-default">Delete post</button>
+		<button ng-if="user" ng-click="deletePost(blogEntry)" class="btn btn-default">Delete post</button>
     </h3>
     <span ng-bind="blogEntry.dateText"></span><br />
     <span ng-bind-html="blogEntry.contentText"></span>

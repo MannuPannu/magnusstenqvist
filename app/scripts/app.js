@@ -1,7 +1,12 @@
-define(['angular', 'navbarController', 'blogController', 'angularUiRouter', 'textAngular'], 
-		function(angular, navbarController, blogController, angularUiRouter, textAngular) {
+define(['angular', 'navbarController', 'blogController', 'angularUiRouter', 'textAngular', 'underscore'], 
+		function(angular, navbarController, blogController, angularUiRouter, textAngular, underscore) {
 
-var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular']);
+var underscore = angular.module('underscore', []);
+underscore.factory('_', function() {
+	  return window._; //Underscore must already be loaded on the page
+});
+
+var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular', 'underscore']);
 
 		app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
@@ -16,17 +21,15 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 				.state('main.blog', {
 					url: "/blog",
 					templateUrl: "app/views/partials/blog.html",
-					controller: ['$scope', '$http', '$state', blogController]
+					controller: ['$scope', '$http', '$state', '_', blogController]
 				})
 				.state('main.blog.createpost', {
 					url: "/createpost",
 					templateUrl: "app/views/partials/blog/createpost.html",
-					controller: ['$scope', '$http', '$state', blogController]
 				})
 				.state('main.blog.itemlist', {
 					url: "/itemlist",
 					templateUrl: "app/views/partials/blog/itemlist.html",
-					controller: ['$scope', '$http', '$state', blogController]
 				})
 				.state('main.games', {
 					url: "/games",
