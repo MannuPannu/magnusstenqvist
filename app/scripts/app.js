@@ -5,7 +5,7 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize']);
 
 		app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-			$urlRouterProvider.otherwise("/main/blog");
+			$urlRouterProvider.otherwise("/main/blog/itemlist");
 
 			//Set up the states
 			$stateProvider
@@ -16,7 +16,17 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize']);
 				.state('main.blog', {
 					url: "/blog",
 					templateUrl: "app/views/partials/blog.html",
-					controller: ['$scope', '$http', blogController]
+					controller: ['$scope', '$http', '$state', blogController]
+				})
+				.state('main.blog.createpost', {
+					url: "/createpost",
+					templateUrl: "app/views/partials/blog/createpost.html",
+					controller: ['$scope', '$http', '$state', blogController]
+				})
+				.state('main.blog.itemlist', {
+					url: "/itemlist",
+					templateUrl: "app/views/partials/blog/itemlist.html",
+					controller: ['$scope', '$http', '$state', blogController]
 				})
 				.state('main.games', {
 					url: "/games",

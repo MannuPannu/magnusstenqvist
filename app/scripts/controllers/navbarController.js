@@ -4,7 +4,7 @@ define("navbarController", [], function(){
 		var navbarController = function ($scope, $location, $http) {
 
 			$scope.isActive = function (route) {
-				return route === $location.path();
+				return $location.path().includes(route);
 			};
 
 			$http.get('/loggedin').success(function(user) {
