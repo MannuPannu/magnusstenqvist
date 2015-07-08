@@ -4,6 +4,13 @@ define("blogController", [],function () {
 
 			$scope.blogEntries = $scope.blogEntries || [];
 
+			//Placeholder for entry currently edited
+			$scope.blogEntryEdited = {
+				headerText: "",
+				contentText: "",
+				dateText: ""		
+			};
+
 			$scope.message = "Welcome to my new web site!";
 
 			$http.get('/loggedin').success(function(user) {
@@ -27,16 +34,27 @@ define("blogController", [],function () {
 			};
 
 			$scope.createPost = function() {
+				$scope.blogEntryEdited.dateText = "2020-12-01"; //TODO: Create date using date.js
+				 $http.post('/api/createblogentry', $scope.blogEntryEdited).success(function() {
 
-				var blogEntry = {headerText: $scope.postHeader,
-					contentText: $scope.postHtml, dateText: "2025-02-03"};
+					//Check if blogentry is new, then add it to list
+					if(!$scope.blogEntryEdited._id) {
+							
+						 $scope.blogEntries.push({
+							 headerText: $scope.blogEntryEdited.headerText,
+							 contentText: $scope.blogEntryEdited.contentText,
+							 dateText: $scope.blogEntryEdited.dateText
+						 });
+					}
 
-				 $http.post('/api/createblogentry', blogEntry).success(function() {
-				 			
-				 	 $scope.blogEntries.push(blogEntry);
 				 	 $state.go("main.blog.itemlist");
-
 				 });
+			};
+
+			$scope.editPost = function(blogEntry) {
+				$scope.blogEntryEdited = blogEntry;
+
+				$state.go("main.blog.createpost");
 			};
 
 			$scope.deletePost = function(blogEntry) {

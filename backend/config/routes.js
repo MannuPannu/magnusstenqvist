@@ -15,14 +15,7 @@ module.exports = function(router, passport) {
 
 		if(req.isAuthenticated()){
 				
-			var err = api.CreateBlogEntry(req.body);
-
-			if(err) {
-				res.send(400);
-			}
-			else {
-				res.send(200);
-			}
+			return api.CreateOrUpdateBlogEntry(req, res);
 		}
 		else {
 			res.send(400);
@@ -33,7 +26,7 @@ module.exports = function(router, passport) {
 
 		if(req.isAuthenticated()){
 				
-			var err = api.DeleteBlogEntry(req.body);
+			var err = api.DeleteBlogEntry(req, res);
 
 			if(err) {
 				res.send(400);

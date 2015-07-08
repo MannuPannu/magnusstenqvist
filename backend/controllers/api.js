@@ -15,18 +15,42 @@ exports.GetBlogEntries = function(req, res) {
 			});
 };
 
-exports.CreateBlogEntry = function(data) {
+exports.CreateOrUpdateBlogEntry = function(req, res) {
 
-	var blogEntry = new BlogEntry(data);	
+	var entry = req.body;
 
-	blogEntry.save(function(err) {
-	 	if(err) return err;
-	 });
+	BlogEntry.findById(entry._id, function(err, blogEntry) {
+
+		if(err) return res.send(400);
+			
+		if(blogEntry) { //Existing entry in db
+			blogEntry.headerText = entry.headerText;
+			blogEntry.contentText = entry.contentText;
+			blogEntry.dateText = entry.dateText;
+
+			blogEntry.save(function(err) {
+				if(err) return res.send(400); 		
+
+				return res.send(200);
+			})		
+		}				
+		else {
+			var blogEntry = new BlogEntry(entry);
+			console.log(blogEntry);
+			blogEntry.save(function(err) {
+
+				if(err) return res.send(400);
+
+				return res.json(blogEntry);
+			});
+		}
+	});
 };
 
-exports.DeleteBlogEntry = function(entry) {
 
-	var id = entry._id;
+exports.DeleteBlogEntry = function(req, res) {
+
+	var id = req.body._id;
 
 	BlogEntry.findById(id, function(err, blogEntry) {
 		if(blogEntry) {

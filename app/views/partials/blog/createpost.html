@@ -1,9 +1,9 @@
 <h1>Create post</h1>
 <h2>Header</h2>
-<input style="width: 100%" ng-model="$parent.postHeader"><br />
+<input style="width: 100%" ng-model="$parent.blogEntryEdited.headerText"><br />
 <hr />
 <h2>Content</h2>
-<div text-angular ng-model="$parent.postHtml" />
+<div text-angular ng-model="$parent.blogEntryEdited.contentText" />
 
 <button ng-click="cancelCreatePost()" class="btn btn-default">Cancel</button>
 <button ng-click="createPost()" class="btn btn-primary">Create post</button>	
