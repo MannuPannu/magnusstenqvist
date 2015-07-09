@@ -1,7 +1,6 @@
 'use strict'
 
 var api = require('../controllers/api');
-// var passport = require('passport');
 var express = require('express');
 var Account = require('../models/account');
 

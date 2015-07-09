@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+	_ = require('underscore'),
 	BlogEntry = mongoose.model('BlogEntry');
 
 exports.GetBlogEntries = function(req, res) {
@@ -7,6 +8,11 @@ exports.GetBlogEntries = function(req, res) {
 			function (err, items) {
 
 				if (!err) {
+				 	//Sort them	by date
+					items = _.sortBy(items, function(e) {
+						return -(new Date(e.dateText));
+					});
+
 					return res.json(items);
 
 				} else {
