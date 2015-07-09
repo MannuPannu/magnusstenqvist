@@ -9,7 +9,7 @@ require.config({
         highlightjs: '../../bower_components/highlightjs/highlight.pack',
 		ngSanitize: '../../bower_components/angular-sanitize/angular-sanitize.min',
 		underscore: '../../bower_components/underscore/underscore-min',
-		// textAngularRangy: '../../bower_components/textAngular/dist/textAngular-rangy.min',
+		// "angularMoment": '../../bower_components/angular-moment/angular-moment',
 		textAngular: '../../bower_components/textAngular/dist/textAngular.min',
 		textAngularSanitize: '../../bower_components/textAngular/dist/textAngular-sanitize.min',
 		blogController: 'controllers/blogController',
@@ -47,7 +47,8 @@ require.config({
 
 });
 
-require(['angular','jquery', 'bootstrapJs','ngSanitize', 'angularHighlightjs', 'underscore', /*'textAngularRangy',*/
+require(['angular','jquery', 'bootstrapJs','ngSanitize', 'angularHighlightjs', 'underscore', 
+	//	'angularMoment',/*'textAngularRangy',*/
 		'app'], function (angular) {
 
 			angular.element(document.getElementsByTagName('html')[0]);

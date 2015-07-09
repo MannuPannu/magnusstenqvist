@@ -4,13 +4,6 @@ define("blogController", [],function () {
 
 			$scope.blogEntries = $scope.blogEntries || [];
 
-			//Placeholder for entry currently edited
-			$scope.blogEntryEdited = {
-				headerText: "",
-				contentText: "",
-				dateText: ""		
-			};
-
 			$scope.message = "Welcome to my new web site!";
 
 			$http.get('/loggedin').success(function(user) {
@@ -26,6 +19,14 @@ define("blogController", [],function () {
 			$scope.populateItemList();
 
 			$scope.openCreatePostView = function() {
+				
+				//Placeholder for entry currently edited
+				$scope.blogEntryEdited = {
+					headerText: "",
+					contentText: "",
+					dateText: moment().format("YYYY-MM-DD hh:mm")
+				};
+
 				$state.transitionTo("main.blog.createpost");
 			};
 
@@ -34,7 +35,6 @@ define("blogController", [],function () {
 			};
 
 			$scope.createPost = function() {
-				$scope.blogEntryEdited.dateText = "2020-12-01"; //TODO: Create date using date.js
 				 $http.post('/api/createblogentry', $scope.blogEntryEdited).success(function() {
 
 					//Check if blogentry is new, then add it to list

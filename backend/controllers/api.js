@@ -36,7 +36,6 @@ exports.CreateOrUpdateBlogEntry = function(req, res) {
 		}				
 		else {
 			var blogEntry = new BlogEntry(entry);
-			console.log(blogEntry);
 			blogEntry.save(function(err) {
 
 				if(err) return res.send(400);
