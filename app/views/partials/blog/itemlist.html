@@ -9,7 +9,7 @@
 		<button ng-if="user" ng-click="deletePost(blogEntry)" class="btn btn-default">Delete post</button>
     </h3>
     <span class="dateText" ng-bind="blogEntry.dateText"></span><br />
-    <span ng-bind-html="blogEntry.contentText"></span>
+    <span class="contentText" ng-bind-html="blogEntry.contentText"></span>
     <hr />
 </div>
 <div hljs>
