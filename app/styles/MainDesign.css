@@ -1,8 +1,28 @@
 ﻿pre {
     border: none;
-    /*background-color: white;*/
 }
 
 .btn {
 	margin: 5px;
 }
+
+@font-face {
+	font-family: "RobotoSlab";
+	src: url(../app/fonts/RobotoSlab-Regular.ttf) format("truetype");
+}
+
+.headerText {
+	font-family: "RobotoSlab";
+}
+
+.dateText {
+	font-style: italic;
+	font-size: 13px;
+}
+
+/* Bootstrap overrides */
+
+.navbar {
+	margin: 5px;
+}
+

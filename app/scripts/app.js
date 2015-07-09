@@ -1,5 +1,5 @@
-define(['angular', 'navbarController', 'blogController', 'angularUiRouter', 'textAngular', 'underscore'], 
-		function(angular, navbarController, blogController, angularUiRouter, textAngular, underscore) {
+define(['angular', 'navbarController', 'blogController', 'aboutController', 'angularUiRouter', 'textAngular', 'underscore'], 
+		function(angular, navbarController, blogController, aboutController, angularUiRouter, textAngular, underscore) {
 
 var underscore = angular.module('underscore', []);
 underscore.factory('_', function() {
@@ -37,7 +37,8 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 				})
 				.state('main.about', {
 					url: "/about",
-					templateUrl: "app/views/partials/about.html"
+					templateUrl: "app/views/partials/about.html",
+					controller: ['$scope', '$http', '$state', '_', aboutController]
 				})
 				.state('main.login', {
 						url: "/login",

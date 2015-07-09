@@ -13,7 +13,8 @@ require.config({
 		textAngular: '../../bower_components/textAngular/dist/textAngular.min',
 		textAngularSanitize: '../../bower_components/textAngular/dist/textAngular-sanitize.min',
 		blogController: 'controllers/blogController',
-		navbarController: 'controllers/navbarController'
+		navbarController: 'controllers/navbarController',
+		aboutController: 'controllers/aboutController'
 	 },
 	shim: {
 		'angular' : {
