@@ -26,6 +26,17 @@
 	color: grey;
 }
 
+@media (min-width: 780px) {
+	.pageContainer {
+		margin: 30px;
+	}
+}
+
+.pageContainer{
+	max-width: 780px;
+	float: left;
+}
+
 /* Bootstrap overrides */
 
 .navbar {
