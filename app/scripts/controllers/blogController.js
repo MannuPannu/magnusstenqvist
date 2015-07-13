@@ -4,6 +4,9 @@ define("blogController", [],function () {
 
 			$scope.blogEntries = $scope.blogEntries || [];
 
+			$scope.tags = ["hej", "då", "boy"];
+			$scope.chosenTag = "-1";
+
 			$scope.message = "Welcome to my new web site!";
 
 			$http.get('/loggedin').success(function(user) {
