@@ -10,6 +10,10 @@ module.exports = function(router, passport) {
 		api.GetBlogEntries(req, res);
 	});
 
+	router.get('/api/blogentriesbytag', function(req, res){
+		api.GetBlogEntriesByTag(req, res, req.query.tag);
+	});
+
 	router.post('/api/createblogentry', function(req, res) {
 
 		if(req.isAuthenticated()){
@@ -38,6 +42,7 @@ module.exports = function(router, passport) {
 			res.send(400);
 		}
 	});
+
 	router.post('/login', passport.authenticate('local'), function(req, res) {
 		res.redirect('/');
 	});

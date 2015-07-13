@@ -17,6 +17,7 @@ define("blogController", [],function () {
 			$scope.populateItemList = function() {
 				$http.get('/api/blogentries', {cache: true}).success(function (blogEntries) {
 					$scope.blogEntries = blogEntries;
+					$scope.populateTags();
 				});
 			};
 
@@ -98,9 +99,27 @@ define("blogController", [],function () {
 					});
 				}
 			};
-		}
+
+			$scope.filterByTag = function(tag) {
+
+				if(tag) {
+					$http({
+						method: 'GET',
+						url: '/api/blogentriesbytag',
+						params: {
+							tag: tag
+						}
+					}).success(function (blogEntries) {
+						$scope.blogEntries = blogEntries;
+					});
+				}
+				else {
+					$scope.populateItemList();	
+				}
+			};
+
+		};
 	
 		return blogController;
-	}
-);
+});
 
