@@ -4,8 +4,9 @@ define("blogController", [],function () {
 
 			$scope.blogEntries = $scope.blogEntries || [];
 
-			$scope.tags = ["hej", "då", "boy"];
-			$scope.chosenTag = "-1";
+			$scope.tags = [];
+			$scope.tagText = "";
+			$scope.newTagText = "";
 
 			$scope.message = "Welcome to my new web site!";
 
@@ -19,6 +20,22 @@ define("blogController", [],function () {
 				});
 			};
 
+			$scope.populateTags = function() {
+
+				$scope.tags = [];
+				//Populate tags
+				_.each($scope.blogEntries, function(blogEntry) {
+
+					if(blogEntry.tagText && blogEntry.tagText !== ""){
+
+						//Check so it does not exist already in tag list
+						if(!_.contains($scope.tags, blogEntry.tagText)){
+							$scope.tags.push(blogEntry.tagText);
+						}
+					}
+				});
+			};
+
 			$scope.populateItemList();
 
 			$scope.openCreatePostView = function() {
@@ -27,8 +44,13 @@ define("blogController", [],function () {
 				$scope.blogEntryEdited = {
 					headerText: "",
 					contentText: "",
-					dateText: moment().format("YYYY-MM-DD hh:mm")
+					dateText: moment().format("YYYY-MM-DD hh:mm"),
+					tagText: ""
 				};
+
+				$scope.populateTags();
+				$scope.newTagText = "";
+				$scope.tagText = "";
 
 				$state.transitionTo("main.blog.createpost");
 			};
@@ -38,15 +60,18 @@ define("blogController", [],function () {
 			};
 
 			$scope.createPost = function() {
-				 $http.post('/api/createblogentry', $scope.blogEntryEdited).success(function() {
 
+				$scope.blogEntryEdited.tagText = $scope.tagText !== '' ? $scope.tagText : $scope.newTagText;
+
+				 $http.post('/api/createblogentry', $scope.blogEntryEdited).success(function() {
 					//Check if blogentry is new, then add it to list
 					if(!$scope.blogEntryEdited._id) {
 							
 						 $scope.blogEntries.push({
 							 headerText: $scope.blogEntryEdited.headerText,
 							 contentText: $scope.blogEntryEdited.contentText,
-							 dateText: $scope.blogEntryEdited.dateText
+							 dateText: $scope.blogEntryEdited.dateText,
+							 tagText: $scope.tagText !== '' ? $scope.tagText : $scope.newTagText 
 						 });
 					}
 
@@ -56,6 +81,7 @@ define("blogController", [],function () {
 
 			$scope.editPost = function(blogEntry) {
 				$scope.blogEntryEdited = blogEntry;
+				$scope.tagText = blogEntry.tagText;
 
 				$state.go("main.blog.createpost");
 			};

@@ -21,16 +21,17 @@
 
 	<label for="tagSelect">Choose tag</label>
 
-	<select id="tagSelect" class="form-control" ng-model="$parent.chosenTag">
-		<option value="-1">Select tag</option>
-		<option ng-repeat="tag in $parent.tags" value="{{ tag }}">{{ tag }}</option>
+	<select id="tagSelect" class="form-control" ng-change="$parent.newTagText = ''" ng-model="$parent.tagText">
+		<option value="">Select tag</option>
+		<option ng-repeat="tag in $parent.tags" >{{ tag }}</option>
 	</select>
 </div>
+
 <div class="form-group col-xs-6">
 	<label>Or else create new tag</label>
-   
-	<input class="form-control" ng-model="$parent.chosenNewTag"></input>
+	<input ng-change="$parent.tagText = ''" class="form-control" ng-model="$parent.newTagText"></input>
 </div>
+
 <div class="form-group" style="clear: both">
 	<button ng-click="cancelCreatePost()" class="btn btn-default">Cancel</button>
 	<button ng-click="createPost()" class="btn btn-primary">Create post</button>	

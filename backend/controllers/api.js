@@ -33,6 +33,7 @@ exports.CreateOrUpdateBlogEntry = function(req, res) {
 			blogEntry.headerText = entry.headerText;
 			blogEntry.contentText = entry.contentText;
 			blogEntry.dateText = entry.dateText;
+			blogEntry.tagText = entry.tagText
 
 			blogEntry.save(function(err) {
 				if(err) return res.send(400); 		
