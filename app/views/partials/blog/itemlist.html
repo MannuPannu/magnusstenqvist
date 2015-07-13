@@ -6,6 +6,7 @@ Filter by tags: <span ng-repeat="tag in $parent.tags"><a href="#" ng-click="filt
 <div ng-repeat="blogEntry in blogEntries">
     <h3>
 		<span class="headerText" ng-bind="blogEntry.headerText"></span>
+		<button ng-if="user" ng-click="editPost(blogEntry)" class="btn btn-default">Edit post</button>
 		<button ng-if="user" ng-click="deletePost(blogEntry)" class="btn btn-default">Delete post</button>
     </h3>
     <span class="dateText" ng-bind="blogEntry.dateText"></span><br />
