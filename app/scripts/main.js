@@ -9,9 +9,9 @@ require.config({
         highlightjs: '../../bower_components/highlightjs/highlight.pack',
 		ngSanitize: '../../bower_components/angular-sanitize/angular-sanitize.min',
 		underscore: '../../bower_components/underscore/underscore-min',
-		// "angularMoment": '../../bower_components/angular-moment/angular-moment',
 		textAngular: '../../bower_components/textAngular/dist/textAngular.min',
 		textAngularSanitize: '../../bower_components/textAngular/dist/textAngular-sanitize.min',
+		notification: '../../bower_components/angular-ui-notification/dist/angular-ui-notification.min',
 		blogController: 'controllers/blogController',
 		navbarController: 'controllers/navbarController',
 		aboutController: 'controllers/aboutController'
@@ -36,6 +36,9 @@ require.config({
 			deps: ['angular'],
 			exports: 'textAngularSanitize'
 		},
+		'notification' : {
+			deps: ['angular']
+		},
 		// textAngularRangy: {
 		// 	deps: ['angular']
 		// },
@@ -48,7 +51,7 @@ require.config({
 
 });
 
-require(['angular','jquery', 'bootstrapJs','ngSanitize', 'angularHighlightjs', 'underscore', 
+require(['angular','jquery', 'bootstrapJs','ngSanitize', 'angularHighlightjs', 'underscore', 'notification',
 	//	'angularMoment',/*'textAngularRangy',*/
 		'app'], function (angular) {
 

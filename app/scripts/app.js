@@ -1,14 +1,19 @@
-define(['angular', 'navbarController', 'blogController', 'aboutController', 'angularUiRouter', 'textAngular', 'underscore'], 
-		function(angular, navbarController, blogController, aboutController, angularUiRouter, textAngular, underscore) {
+define(['angular', 'navbarController', 'blogController', 'aboutController', 'angularUiRouter', 'textAngular', 'underscore', 'notification'], 
+		function(angular, navbarController, blogController, aboutController, angularUiRouter, textAngular, underscore, notification) {
 
 var underscore = angular.module('underscore', []);
 underscore.factory('_', function() {
 	  return window._; //Underscore must already be loaded on the page
 });
 
-var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular', 'underscore']);
+var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular', 'underscore', 'ui-notification']);
 
-		app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+		app.config(['$stateProvider','$urlRouterProvider', 'NotificationProvider', function($stateProvider, $urlRouterProvider, NotificationProvider) {
+
+			NotificationProvider.setOptions({
+				positionX: 'left',
+				positionY: 'bottom'
+			});
 
 			$urlRouterProvider.otherwise("/main/blog/itemlist");
 
@@ -21,7 +26,7 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 				.state('main.blog', {
 					url: "/blog",
 					templateUrl: "app/views/partials/blog.html",
-					controller: ['$scope', '$http', '$state', '_', blogController]
+					controller: ['$scope', '$http', '$state', '_', 'Notification', blogController]
 				})
 				.state('main.blog.createpost', {
 					url: "/createpost",
