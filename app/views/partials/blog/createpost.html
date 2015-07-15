@@ -34,5 +34,5 @@
 
 <div class="form-group" style="clear: both">
 	<button ng-click="cancelCreatePost()" class="btn btn-default">Cancel</button>
-	<button ng-click="createPost()" class="btn btn-primary">Create post</button>	
+	<button ng-click="createPost()" class="btn btn-primary"><span ng-bind="editingPost ? 'Update post' : 'Create post'"></button>	
 </div>

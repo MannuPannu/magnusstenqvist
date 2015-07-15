@@ -7,8 +7,7 @@ define("blogController", [],function () {
 			$scope.tags = [];
 			$scope.tagText = "";
 			$scope.newTagText = "";
-
-			$scope.message = "Welcome to my new web site!";
+			$scope.editingPost = false;
 
 			$http.get('/loggedin').success(function(user) {
 				$scope.user  = user;		
@@ -45,9 +44,11 @@ define("blogController", [],function () {
 				$scope.blogEntryEdited = {
 					headerText: "",
 					contentText: "",
-					dateText: moment().format("YYYY-MM-DD hh:mm"),
+					dateText: moment().format("YYYY-MM-DD HH:mm"),
 					tagText: ""
 				};
+
+				$scope.editingPost = false;
 
 				$scope.populateTags();
 				$scope.newTagText = "";
@@ -74,6 +75,11 @@ define("blogController", [],function () {
 							 dateText: $scope.blogEntryEdited.dateText,
 							 tagText: $scope.tagText !== '' ? $scope.tagText : $scope.newTagText 
 						 });
+
+						 //Sort the posts
+						$scope.blogEntries = _.sortBy($scope.blogEntries, function(e) {
+							return -(new Date(e.dateText));		
+						});
 					}
 
 				 	 $state.go("main.blog.itemlist");
@@ -84,6 +90,7 @@ define("blogController", [],function () {
 				$scope.blogEntryEdited = blogEntry;
 				$scope.tagText = blogEntry.tagText;
 
+				$scope.editingPost = true;
 				$state.go("main.blog.createpost");
 			};
 
@@ -116,6 +123,10 @@ define("blogController", [],function () {
 				else {
 					$scope.populateItemList();	
 				}
+			};
+
+			$scope.convertText = function(date) {
+				return moment(date).lang("se").format("dddd Do MMMM YYYY HH:mm");		
 			};
 
 		};
