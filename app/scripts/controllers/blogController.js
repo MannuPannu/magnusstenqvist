@@ -1,10 +1,9 @@
 define("blogController", [],function () {
 		
-		var blogController = function ($scope, $http, $state, _, Notification) {
+		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider) {
 			$scope.blogEntries = $scope.blogEntries || [];
 
 			$scope.tags = [];
-			$scope.tagText = "";
 			$scope.newTagText = "";
 			$scope.editingPost = false;
 
@@ -26,13 +25,16 @@ define("blogController", [],function () {
 				_.each($scope.blogEntries, function(blogEntry) {
 
 					if(blogEntry.tagText && blogEntry.tagText !== ""){
-
 						//Check so it does not exist already in tag list
 						if(!_.contains($scope.tags, blogEntry.tagText)){
-							$scope.tags.push(blogEntry.tagText);
+							 $scope.tags.push(blogEntry.tagText);
 						}
 					}
 				});
+
+				if($scope.tags.length > 0) {
+					$scope.tagText = $scope.tags[0];		
+				}
 			};
 
 			$scope.populateItemList();
@@ -60,35 +62,48 @@ define("blogController", [],function () {
 				$state.transitionTo("main.blog.itemlist");		
 			};
 
-			$scope.createPost = function() {
+			$scope.createPost = function(form) {
 
-				$scope.blogEntryEdited.tagText = $scope.tagText !== '' ? $scope.tagText : $scope.newTagText;
+				var isFormValid = false;
 
-				 $http.post('/api/createblogentry', $scope.blogEntryEdited).success(function() {
+				$validationProvider.validate(form)
+					.success(function() {
 
-					//Check if blogentry is new, then add it to list
-					if(!$scope.blogEntryEdited._id) {
-							
-						 $scope.blogEntries.push({
-							 headerText: $scope.blogEntryEdited.headerText,
-							 contentText: $scope.blogEntryEdited.contentText,
-							 dateText: $scope.blogEntryEdited.dateText,
-							 tagText: $scope.tagText !== '' ? $scope.tagText : $scope.newTagText 
+						$scope.blogEntryEdited.tagText = $scope.newTagText !== '' ? $scope.newTagText : $scope.tagText;
+
+						 $http.post('/api/createblogentry', $scope.blogEntryEdited).success(function() {
+
+							//Check if blogentry is new, then add it to list
+							if(!$scope.blogEntryEdited._id) {
+									
+								 $scope.blogEntries.push({
+									 headerText: $scope.blogEntryEdited.headerText,
+									 contentText: $scope.blogEntryEdited.contentText,
+									 dateText: $scope.blogEntryEdited.dateText,
+									 tagText: $scope.tagText !== '' ? $scope.tagText : $scope.newTagText 
+								 });
+
+								 //Sort the posts
+								$scope.blogEntries = _.sortBy($scope.blogEntries, function(e) {
+									return -(new Date(e.dateText));		
+								});
+							}
+
+							Notification.success({
+								message: 
+									$scope.editingPost ? 'Blog post updated' : 'Blog post created', delay: 2000
+							});
+
+							 $state.go("main.blog.itemlist");
 						 });
+					})
+					.error(function(msg) {
 
-						 //Sort the posts
-						$scope.blogEntries = _.sortBy($scope.blogEntries, function(e) {
-							return -(new Date(e.dateText));		
+						Notification.error({
+							message: 
+							'Form not filled in correctly', delay: 2000
 						});
-					}
-
-					Notification.success({
-						message: 
-							$scope.editingPost ? 'Blog post updated' : 'Blog post created', delay: 2000
 					});
-
-				 	 $state.go("main.blog.itemlist");
-				 });
 			};
 
 			$scope.editPost = function(blogEntry) {
@@ -138,7 +153,6 @@ define("blogController", [],function () {
 			$scope.convertText = function(date) {
 				return moment(date).format("dddd Do MMMM YYYY HH:mm");		
 			};
-
 		};
 	
 		return blogController;

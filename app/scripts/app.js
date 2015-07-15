@@ -1,19 +1,26 @@
-define(['angular', 'navbarController', 'blogController', 'aboutController', 'angularUiRouter', 'textAngular', 'underscore', 'notification'], 
-		function(angular, navbarController, blogController, aboutController, angularUiRouter, textAngular, underscore, notification) {
+define(['angular', 'navbarController', 'blogController', 'aboutController', 'angularUiRouter', 'textAngular', 'underscore', 'notification', 'validation', 'validationRule'], 
+		function(angular, navbarController, blogController, aboutController, angularUiRouter, textAngular, underscore, notification, validation, validationRule) {
 
 var underscore = angular.module('underscore', []);
 underscore.factory('_', function() {
 	  return window._; //Underscore must already be loaded on the page
 });
 
-var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular', 'underscore', 'ui-notification']);
+var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular', 'underscore', 'ui-notification',
+	'validation', 'validation.rule']);
 
-		app.config(['$stateProvider','$urlRouterProvider', 'NotificationProvider', function($stateProvider, $urlRouterProvider, NotificationProvider) {
+		app.config(['$stateProvider','$urlRouterProvider', 'NotificationProvider', '$validationProvider', function($stateProvider, $urlRouterProvider, NotificationProvider, $validationProvider) {
 
 			NotificationProvider.setOptions({
 				positionX: 'left',
 				positionY: 'bottom'
 			});
+
+			$validationProvider.setErrorHTML(function(msg) {
+				return "<span class='errorMessage'>" + msg + "</span>";
+			});
+
+			$validationProvider.showSuccessMessage = false;
 
 			$urlRouterProvider.otherwise("/main/blog/itemlist");
 
@@ -26,7 +33,7 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 				.state('main.blog', {
 					url: "/blog",
 					templateUrl: "app/views/partials/blog.html",
-					controller: ['$scope', '$http', '$state', '_', 'Notification', blogController]
+					controller: ['$scope', '$http', '$state', '_', 'Notification', '$validation', blogController]
 				})
 				.state('main.blog.createpost', {
 					url: "/createpost",
