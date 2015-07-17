@@ -14,6 +14,10 @@ module.exports = function(router, passport) {
 		api.GetBlogEntriesByTag(req, res, req.query.tag);
 	});
 
+	router.get('/api/blogentriesbyid', function(req, res){
+		api.GetBlogEntriesByIds(req, res, req.query.id);
+	});
+
 	router.post('/api/createblogentry', function(req, res) {
 
 		if(req.isAuthenticated()){

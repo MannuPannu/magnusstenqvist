@@ -3,7 +3,7 @@ Filter by tags: <span ng-repeat="tag in $parent.tags"><a href="#" ng-click="filt
 	<button ng-click="openCreatePostView()" class="btn btn-primary">Create post</button>
 </div>
 
-<div ng-repeat="blogEntry in blogEntries">
+<div ng-repeat="blogEntry in blogEntries | filter:  blogEntriesFilterId | filter: searchFilter">
     <h3>
 		<span class="headerText" ng-bind="blogEntry.headerText"></span>
 	</h3>

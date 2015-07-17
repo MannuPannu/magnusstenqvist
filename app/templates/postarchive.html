@@ -1,14 +1,16 @@
-<div>Blog archive</div>
+<h3>Blog archive</h3> <a href="#" ng-click="onClickPost({id: ''})">(Expand all) </a>
 
 <ul>
 	<li ng-repeat="year in tree">
-		{{ year.year }}
-		<ul>
+	
+		<a href="#" ng-click="year.show = !year.show">{{ year.year }}</a>
+
+		<ul ng-show="year.show">
 			<li ng-repeat="month in year.months">
-			{{ month.month }} 
-				<ul>
+			<a href="#" ng-click="month.show = !month.show">{{ month.month }} </a>
+				<ul ng-show="month.show">
 					<li ng-repeat="post in month.posts">
-						{{  post }} 
+						<a href="#" ng-click="onClickPost({id: post._id})">{{ post.headerText }}</a>
 					</li>
 				</ul>
 			</li>

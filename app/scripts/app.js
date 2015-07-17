@@ -84,7 +84,7 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 					_.each(scope.postlist, function(post) {
 
 						var currentYear = moment(post.dateText).year().toString();
-						var currentMonth = (moment(post.dateText).month() + 1).toString();
+						var currentMonth = moment(post.dateText).format("MMMM");
 
 						//if year is defined
 						if(_.some(tree, function(e) { return e.year === currentYear })){
@@ -101,7 +101,7 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 									return e.month === currentMonth;
 								});
 
-								monthTree.posts.push(post.headerText);
+								monthTree.posts.push(post);
 							}
 							else{ 
 								createMonthTree(yearTree);
@@ -115,14 +115,17 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 							tree.push({
 								year: currentYear,
 								months: [{
-									month: currentMonth, posts: [post.headerText]
-								}]
+									month: currentMonth, posts: [post], show: true
+								}],
+								show: true 
 							});
 						}
 
 						function createMonthTree(yearTree) {
 							yearTree.months.push( {
-								month: currentMonth, posts: [post.headerText]		
+								month: currentMonth, 
+								posts: [post],
+								show: true
 							});
 						}
 
@@ -135,9 +138,11 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 			return {
 				restrict: 'E',
 				templateUrl: 'app/templates/postarchive.html',
+				transclude: true,
 				link: linkFunction,
 				scope: {
-					postlist: '=postlist'
+					postlist: '=postlist',
+					onClickPost: '&onClickPost'
 				}
 			};
 		});

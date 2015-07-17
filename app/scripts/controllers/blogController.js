@@ -7,7 +7,8 @@ define("blogController", [],function () {
 			$scope.newTagText = "";
 			$scope.editingPost = false;
 
-			$scope.mangeTest = "foo";
+			$scope.blogEntriesFilterId = "";
+			$scope.searchFilter = "";
 
 			$http.get('/loggedin').success(function(user) {
 				$scope.user  = user;		
@@ -149,6 +150,26 @@ define("blogController", [],function () {
 				}
 				else {
 					$scope.populateItemList();	
+					$scope.blogEntriesFilterId = "";
+				}
+			};
+
+			$scope.filterPostById = function(id) {
+
+				if(id) {
+					$http({
+						method: 'GET',
+						url: '/api/blogentriesbyid',
+						params: {
+							id: id
+						}
+					}).success(function (blogEntries) {
+						$scope.blogEntriesFilterId = blogEntries[0]._id;
+					});
+				}
+				else {
+					$scope.populateItemList();	
+					$scope.blogEntriesFilterId = "";
 				}
 			};
 

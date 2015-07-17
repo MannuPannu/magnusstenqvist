@@ -40,6 +40,24 @@ exports.GetBlogEntriesByTag = function(req, res, tag) {
 			});
 };
 
+exports.GetBlogEntriesById = function(req, res, id) {
+
+	return BlogEntry.find({'_id': { $in: [id]}}).exec(
+			function (err, items) {
+
+				if (!err) {
+				 	//Sort them	by date
+					items = _.sortBy(items, function(e) {
+						return -(new Date(e.dateText));
+					});
+
+					return res.json(items);
+
+				} else {
+					return res.send(err);
+				}
+			});
+};
 exports.CreateOrUpdateBlogEntry = function(req, res) {
 
 	var entry = req.body;
