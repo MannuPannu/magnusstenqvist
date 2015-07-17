@@ -1,0 +1,18 @@
+<div>Blog archive</div>
+
+<ul>
+	<li ng-repeat="year in tree">
+		{{ year.year }}
+		<ul>
+			<li ng-repeat="month in year.months">
+			{{ month.month }} 
+				<ul>
+					<li ng-repeat="post in month.posts">
+						{{  post }} 
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+

@@ -68,6 +68,80 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 			});
 		}]);
 
+		//Directives
+		app.directive('postArchive',  function() {
+
+			var linkFunction = function(scope, element, attributes) {
+
+				scope.tree = {
+						
+				};
+
+				scope.$watch('postlist', function(){
+
+					var tree = [];
+
+					_.each(scope.postlist, function(post) {
+
+						var currentYear = moment(post.dateText).year().toString();
+						var currentMonth = (moment(post.dateText).month() + 1).toString();
+
+						//if year is defined
+						if(_.some(tree, function(e) { return e.year === currentYear })){
+
+							//Get year tree (tree from level 2 and down) 
+							var yearTree = _.find(tree, function(e) {
+								return e.year === currentYear;
+							});
+
+							//Check if month exist as child of year
+							if(_.some(yearTree.months, function(e) { return e.month === currentMonth })){
+
+								var monthTree = _.find(yearTree.months, function(e) {
+									return e.month === currentMonth;
+								});
+
+								monthTree.posts.push(post.headerText);
+							}
+							else{ 
+								createMonthTree(yearTree);
+							}
+						}
+						else {
+							createYearTree(post);
+						}
+
+						function createYearTree(post) {
+							tree.push({
+								year: currentYear,
+								months: [{
+									month: currentMonth, posts: [post.headerText]
+								}]
+							});
+						}
+
+						function createMonthTree(yearTree) {
+							yearTree.months.push( {
+								month: currentMonth, posts: [post.headerText]		
+							});
+						}
+
+					 });
+
+					scope.tree = tree;
+				});
+			};
+
+			return {
+				restrict: 'E',
+				templateUrl: 'app/templates/postarchive.html',
+				link: linkFunction,
+				scope: {
+					postlist: '=postlist'
+				}
+			};
+		});
+
 		app.controller('navbarController', ['$scope', '$location', '$http', navbarController]);
 
 		return app;

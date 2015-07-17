@@ -7,6 +7,8 @@ define("blogController", [],function () {
 			$scope.newTagText = "";
 			$scope.editingPost = false;
 
+			$scope.mangeTest = "foo";
+
 			$http.get('/loggedin').success(function(user) {
 				$scope.user  = user;		
 			});
