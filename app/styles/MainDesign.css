@@ -2,8 +2,22 @@
     border: none;
 }
 
+ul {
+	list-style-type: none;
+	padding-left: 0px;
+}
+
+ul ul {
+	list-style-type: none;
+	padding-left: 10px;
+}
+
+li {
+	margin-left: 10px;
+}
+
 .btn {
-	margin: 5px;
+	/* margin: 5px; */
 }
 
 @font-face {
@@ -28,12 +42,11 @@
 
 @media (min-width: 780px) {
 	.pageContainer {
-		margin: 30px;
+		margin: 0px;
 	}
 }
 
 .pageContainer{
-	max-width: 780px;
 	float: left;
 }
 
@@ -42,9 +55,5 @@
 }
 
 /* Bootstrap overrides */
-
-.navbar {
-	margin: 5px;
-}
 
 

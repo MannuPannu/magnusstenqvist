@@ -1,19 +1,18 @@
 <div class="row">
-	
 	<div class="pageContainer col-md-8">
 		<div ui-view />
 	</div>
 
 	<div class="pageContainer col-md-3">
-		<h3>About me</h3>
-		<img src="images/cat.jpg">
-		<br />
-		<br />
-		Thirty-something, stubborn developer trying to learn new things. Passionate about passion fruit and veganism.
+		<post-archive postlist="blogEntries" on-click-post="filterPostById(id)"></post-archive> 
 
+		<form class="form-inline">
+			<div class="form-group">
+				<label for="searchFilterId">Search: </label>
+				<input id="searchFilterId" ng-model="searchFilter" class="form-control" />
+			</div>
+		</form>
 		<br /><br />
-		Search posts (Try it!): <input ng-model="searchFilter" />
-		<post-archive postlist="blogEntries" on-click-post="filterPostById(id)" /> 
 	</div>
 
 </div>

@@ -15,7 +15,7 @@ module.exports = function(router, passport) {
 	});
 
 	router.get('/api/blogentriesbyid', function(req, res){
-		api.GetBlogEntriesByIds(req, res, req.query.id);
+		api.GetBlogEntriesById(req, res, req.query.id);
 	});
 
 	router.post('/api/createblogentry', function(req, res) {
