@@ -1,5 +1,6 @@
 <h3>Blog archive</h3> <a href="#" ng-click="onClickPost({id: ''})">(Expand all) </a>
-<ul>
+
+<ul class="post-archive">
 	<li ng-repeat="year in tree">
 
 		<i ng-class="{'fa fa-caret-down': year.show, 'fa fa-caret-right': !year.show}" style="margin-right: 5px" ng-click="year.show = !year.show" />

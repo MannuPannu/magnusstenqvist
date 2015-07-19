@@ -2,12 +2,12 @@
     border: none;
 }
 
-ul {
+ul.post-archive {
 	list-style-type: none;
 	padding-left: 0px;
 }
 
-ul ul {
+ul.post-archive ul {
 	list-style-type: none;
 	padding-left: 10px;
 }
