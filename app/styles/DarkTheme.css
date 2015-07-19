@@ -1,0 +1,19 @@
+body {
+	background-color: #212121;
+	color: #cccccc;
+	font: normal normal 12px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+}
+
+.headerText {
+	color: #cc6600		
+}
+
+.contentText {
+	font: normal normal 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+}
+
+.container {
+	background-color: #333333;
+}
+
+

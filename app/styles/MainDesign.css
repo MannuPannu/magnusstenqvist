@@ -48,6 +48,7 @@ li {
 
 .pageContainer{
 	float: left;
+	margin: 20px;
 }
 
 .errorMessage {

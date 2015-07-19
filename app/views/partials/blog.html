@@ -4,6 +4,8 @@
 	</div>
 
 	<div class="pageContainer col-md-3">
+
+		Show only posts with tag:<br /> <span ng-repeat="tag in tags"><a href="#" ng-click="filterByTag(tag)")>{{ tag }}</a> | </span><a href="#" ng-click="filterByTag()">Show all</a>
 		<post-archive postlist="blogEntries" on-click-post="filterPostById(id)"></post-archive> 
 
 		<form class="form-inline">
