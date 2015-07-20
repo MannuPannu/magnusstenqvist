@@ -1,5 +1,5 @@
-define(['angular', 'navbarController', 'blogController', 'aboutController', 'angularUiRouter', 'textAngular', 'underscore', 'notification', 'validation', 'validationRule'], 
-		function(angular, navbarController, blogController, aboutController, angularUiRouter, textAngular, underscore, notification, validation, validationRule) {
+define(['angular', 'navbarController', 'blogController', 'aboutController', 'angularUiRouter', 'textAngular', 'underscore', 'notification', 'validation', 'validationRule', 'blogItemController'], 
+		function(angular, navbarController, blogController, aboutController, angularUiRouter, textAngular, underscore, notification, validation, validationRule, blogItemController) {
 
 var underscore = angular.module('underscore', []);
 underscore.factory('_', function() {
@@ -42,6 +42,22 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 				.state('main.blog.itemlist', {
 					url: "/itemlist",
 					templateUrl: "app/views/partials/blog/itemlist.html",
+				})
+				.state('main.blog.itemdetail', {
+					url: "/itemdetail/:date/:header",
+					templateUrl: "app/views/partials/blog/itemdetail.html",
+					controller: ['$scope', '$stateParams', blogItemController],
+					params: {
+						blogEntry: null	
+					}
+				})
+				.state('main.blog.itemdetailwithcomment', {
+					url: "/itemdetail/:date/:header/:reply",
+					templateUrl: "app/views/partials/blog/itemdetail.html",
+					controller: ['$scope', '$stateParams', blogItemController],
+					params: {
+						blogEntry: null	
+					}
 				})
 				.state('main.games', {
 					url: "/games",

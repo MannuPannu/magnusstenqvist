@@ -16,7 +16,8 @@ require.config({
 		validationRule: '../../bower_components/angular-validation/dist/angular-validation-rule.min',
 		blogController: 'controllers/blogController',
 		navbarController: 'controllers/navbarController',
-		aboutController: 'controllers/aboutController'
+		aboutController: 'controllers/aboutController',
+		blogItemController: 'controllers/blogItemController'
 	 },
 	shim: {
 		'angular' : {

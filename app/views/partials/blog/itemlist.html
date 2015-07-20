@@ -4,16 +4,21 @@
 
 <div ng-repeat="blogEntry in blogEntries | filter:  blogEntriesFilterId | filter: searchFilter">
     <h3>
-		<span class="headerText" ng-bind="blogEntry.headerText"></span>
+		<!-- <a href="#" class="headerText" ng&#45;click="openPostDetails(blogEntry)" ng&#45;bind="blogEntry.headerText"></a> -->
+		<a ui-sref="main.blog.itemdetail({date: blogEntry.dateText, header: blogEntry.headerText})" class="headerText" ng-bind="blogEntry.headerText"></a>
 	</h3>
 
 	<button ng-if="user" ng-click="editPost(blogEntry)" class="btn btn-default">Edit post</button>
 	<button ng-if="user" ng-click="deletePost(blogEntry)" class="btn btn-default">Delete post</button>
 		
-
 	<span class="dateText" ng-bind="convertText(blogEntry.dateText)"></span>
 
 	(<a ng-bind="blogEntry.tagText"/>)<br />
-    <span class="contentText" ng-bind-html="blogEntry.contentText"></span>
+	<span class="contentText" ng-bind-html="blogEntry.contentText"></span>
+
+		<a ui-sref="main.blog.itemdetailwithcomment({date: blogEntry.dateText, header: blogEntry.headerText, reply: true})" class="commentLink">Comment post</a>
+	<br />
 	<hr />
+
+</div>
 

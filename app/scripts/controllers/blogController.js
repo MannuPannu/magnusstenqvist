@@ -176,6 +176,16 @@ define("blogController", [],function () {
 			$scope.convertText = function(date) {
 				return moment(date).format("dddd Do MMMM YYYY HH:mm");		
 			};
+
+			$scope.openPostDetails = function(blogEntry, withComments) {
+
+				if(withComments) {
+					$state.go('main.blog.itemdetailwithcomment', {date: blogEntry.dateText, header: blogEntry.headerText, blogEntry: blogEntry, reply: true});
+				}
+				else {
+					$state.go('main.blog.itemdetail', {date: blogEntry.dateText, header: blogEntry.headerText, blogEntry: blogEntry});
+				}
+			}
 		};
 	
 		return blogController;

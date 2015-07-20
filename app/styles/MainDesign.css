@@ -32,12 +32,24 @@ li {
 
 .headerText {
 	font-family: "RobotoSlab";
+	text-decoration: none;
+	color: black;
+}
+
+.headerText:hover {
+	font-family: "RobotoSlab";
+	color: #337ab7;
+	text-decoration: none;
 }
 
 .dateText {
 	font-style: italic;
 	font-size: 13px;
 	color: grey;
+}
+
+.commentLink{
+	float: right;
 }
 
 @media (min-width: 780px) {
