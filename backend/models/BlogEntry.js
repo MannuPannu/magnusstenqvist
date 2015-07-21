@@ -6,7 +6,8 @@ var BlogEntrySchema = mongoose.Schema({
 		headerText: String,
 		dateText: String,
 		contentText: String,
-		tagText: String
+		tagText: String,
+		permaLink: String
 });
 
 mongoose.model('BlogEntry', BlogEntrySchema);

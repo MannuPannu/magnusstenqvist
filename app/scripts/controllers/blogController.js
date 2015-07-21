@@ -3,6 +3,7 @@ define("blogController", [],function () {
 		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider) {
 			$scope.blogEntries = $scope.blogEntries || [];
 
+
 			$scope.tags = [];
 			$scope.newTagText = "";
 			$scope.editingPost = false;
@@ -110,6 +111,7 @@ define("blogController", [],function () {
 			};
 
 			$scope.editPost = function(blogEntry) {
+
 				$scope.blogEntryEdited = blogEntry;
 				$scope.tagText = blogEntry.tagText;
 

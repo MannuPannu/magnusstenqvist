@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
 	_ = require('underscore'),
-	BlogEntry = mongoose.model('BlogEntry');
+	BlogEntry = mongoose.model('BlogEntry'),
+	utils = require('../utils/utils');
 
 exports.GetBlogEntries = function(req, res) {
 
@@ -72,13 +73,19 @@ exports.CreateOrUpdateBlogEntry = function(req, res) {
 			blogEntry.dateText = entry.dateText;
 			blogEntry.tagText = entry.tagText
 
-			blogEntry.save(function(err) {
-				if(err) return res.send(400); 		
+			blogEntry.permaLink = utils.createPermaLink(blogEntry);
 
+			blogEntry.save(function(err) {
+				if(err){
+					console.log(err);
+					return res.send(400); 		
+				}	
 				return res.send(200);
 			})		
 		}				
 		else {
+			entry.permaLink = utils.createPermaLink(entry);
+
 			var blogEntry = new BlogEntry(entry);
 			blogEntry.save(function(err) {
 
