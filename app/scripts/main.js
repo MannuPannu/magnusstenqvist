@@ -17,7 +17,8 @@ require.config({
 		blogController: 'controllers/blogController',
 		navbarController: 'controllers/navbarController',
 		aboutController: 'controllers/aboutController',
-		blogItemController: 'controllers/blogItemController'
+		blogItemController: 'controllers/blogItemController',
+		angularDisqus: '../../bower_components/angular-disqus/angular-disqus'
 	 },
 	shim: {
 		'angular' : {
@@ -48,6 +49,9 @@ require.config({
 		'validationRule' : {
 			deps: ['angular']
 		},
+		'angularDisqus': {
+			deps: ['angular']
+		},
 		// textAngularRangy: {
 		// 	deps: ['angular']
 		// },
@@ -61,7 +65,7 @@ require.config({
 });
 
 require(['angular','jquery', 'bootstrapJs','ngSanitize', 'angularHighlightjs', 'underscore', 'notification',
-		'validation', 'validationRule',
+		'validation', 'validationRule', 'angularDisqus',
 	//	'angularMoment',/*'textAngularRangy',*/
 		'app'], function (angular) {
 

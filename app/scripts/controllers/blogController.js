@@ -1,7 +1,12 @@
 define("blogController", [],function () {
 		
-		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider) {
-			$scope.blogEntries = $scope.blogEntries || [];
+		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider, $stateParams) {
+
+			//Workaround to reload comments
+			window.DISQUSWIDGETS = undefined;
+			$.getScript("http://" + 'magnusstenqvist' + ".disqus.com/count.js");
+
+			$scope.blogEntries = $stateParams.blogEntries;
 			$scope.moment = window.moment;
 
 			$scope.tags = [];
@@ -14,13 +19,6 @@ define("blogController", [],function () {
 			$http.get('/loggedin').success(function(user) {
 				$scope.user  = user;		
 			});
-
-			$scope.populateItemList = function() {
-				$http.get('/api/blogentries', {cache: true}).success(function (blogEntries) {
-					$scope.blogEntries = blogEntries;
-					$scope.populateTags();
-				});
-			};
 
 			$scope.populateTags = function() {
 
@@ -41,8 +39,7 @@ define("blogController", [],function () {
 				}
 			};
 
-			$scope.populateItemList();
-
+			$scope.populateTags();
 			$scope.openCreatePostView = function() {
 				
 				//Placeholder for entry currently edited
@@ -156,38 +153,10 @@ define("blogController", [],function () {
 				}
 			};
 
-			$scope.filterPostById = function(id) {
-
-				if(id) {
-					$http({
-						method: 'GET',
-						url: '/api/blogentriesbyid',
-						params: {
-							id: id
-						}
-					}).success(function (blogEntries) {
-						$scope.blogEntriesFilterId = blogEntries[0]._id;
-					});
-				}
-				else {
-					$scope.populateItemList();	
-					$scope.blogEntriesFilterId = "";
-				}
-			};
-
 			$scope.convertText = function(date) {
 				return moment(date).format("dddd Do MMMM YYYY HH:mm");		
 			};
 
-			$scope.openPostDetails = function(blogEntry, withComments) {
-
-				if(withComments) {
-					$state.go('main.blog.itemdetailwithcomment', {date: blogEntry.dateText, header: blogEntry.headerText, blogEntry: blogEntry, reply: true});
-				}
-				else {
-					$state.go('main.blog.itemdetail', {date: blogEntry.dateText, header: blogEntry.headerText, blogEntry: blogEntry});
-				}
-			}
 		};
 	
 		return blogController;

@@ -12,7 +12,9 @@
         </div>
         <div class="collapse navbar-inverse navbar-collapse" id="navbar" ng-controller="navbarController" >
             <ul class="nav navbar-nav">
-                <li ng-class="{active: isActive('/main/blog/')}"><a ui-sref="main.blog.itemlist">Blog</a></li>
+				<li ng-class="{active: isActive('/main/blog/')}"><a ui-sref="main.blog.itemlist" ui-sref-opts="{
+						reload: true
+					}">Blog</a></li>
                 <li ng-class="{active: isActive('/main/games')}"><a ui-sref="main.games">Games</a></li>
 				<li ng-class="{active: isActive('/main/about')}"><a ui-sref="main.about">About</a></li>
 				<li ng-if="user"><a href="#" ng-click="logout()">Log out</a><li>

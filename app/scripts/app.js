@@ -8,9 +8,14 @@ underscore.factory('_', function() {
 
 
 var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular', 'underscore', 'ui-notification',
-	'validation', 'validation.rule']);
+	'validation', 'validation.rule', 'ngDisqus']);
 
-		app.config(['$stateProvider','$urlRouterProvider', 'NotificationProvider', '$validationProvider', '$urlMatcherFactoryProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, NotificationProvider, $validationProvider, $urlMatcherFactoryProvider, $locationProvider) {
+		app.config(['$stateProvider','$urlRouterProvider', 'NotificationProvider', '$validationProvider', '$urlMatcherFactoryProvider', '$locationProvider', '$disqusProvider', function($stateProvider, $urlRouterProvider, NotificationProvider, $validationProvider, $urlMatcherFactoryProvider, $locationProvider, $disqusProvider) {
+
+			 $locationProvider.html5Mode(false).hashPrefix("!");
+
+			 //Set up disqus
+			 $disqusProvider.setShortname('magnusstenqvist');
 
 			var itemType = {
 				encode: function(headerText) {
@@ -49,7 +54,14 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 				.state('main.blog', {
 					url: "/blog",
 					templateUrl: "app/views/partials/blog.html",
-					controller: ['$scope', '$http', '$state', '_', 'Notification', '$validation', blogController]
+					controller: ['$scope', '$http', '$state', '_', 'Notification', '$validation', '$stateParams', blogController],
+					resolve: {
+						LoadItems: function($http, $stateParams){
+							return $http.get('/api/blogentries', {cache: true}).success(function (blogEntries) {
+								$stateParams.blogEntries = blogEntries;
+							});
+						}
+					}
 				})
 				.state('main.blog.createpost', {
 					url: "/createpost",
@@ -58,6 +70,9 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 				.state('main.blog.itemlist', {
 					url: "/itemlist",
 					templateUrl: "app/views/partials/blog/itemlist.html",
+					resolve: {
+							
+					}
 				})
 				.state('main.blog.itemdetail', {
 					url: "/itemdetail/{dateUrl:item}/{headerUrl:item}", 

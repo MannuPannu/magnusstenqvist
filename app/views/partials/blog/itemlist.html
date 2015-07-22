@@ -6,15 +6,15 @@
 	<h3>
 	
 	<a ui-sref="main.blog.itemdetail({dateUrl: moment(blogEntry.dateText).format('YYYY-MM-DD'), headerUrl: blogEntry.headerText})" class="headerText headerTextClickable" ng-bind="blogEntry.headerText"></a> </h3> 
+
 	<button ng-if="user" ng-click="editPost(blogEntry)" class="btn btn-default">Edit post</button>
 	<button ng-if="user" ng-click="deletePost(blogEntry)" class="btn btn-default">Delete post</button>
 		
 	<span class="dateText" ng-bind="convertText(blogEntry.dateText)"></span>
 
 	(<a ng-bind="blogEntry.tagText"/>)<br />
-	<span class="contentText" ng-bind-html="blogEntry.contentText"></span>
-
-		<a ui-sref="main.blog.itemdetail({dateUrl: moment(blogEntry.dateText).format('YYYY-MM-DD'), headerUrl: blogEntry.headerText})" class="commentLink">Comment post</a> </h3> 
+		<span class="contentText" ng-bind-html="blogEntry.contentText"></span>
+		<a ui-sref="main.blog.itemdetail({dateUrl: moment(blogEntry.dateText).format('YYYY-MM-DD'), headerUrl: blogEntry.headerText})" class="commentLink disqus-comment-count" data-disqus-identifier="{{blogEntry._id}}"></a> </h3> 
 	<br />
 	<hr />
 

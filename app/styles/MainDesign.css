@@ -75,10 +75,9 @@ li {
 }
 
 .toggleLinks:hover {
-	color: black;
+	color: grey;
 	cursor: pointer;		
 	text-decoration: none;
 }
-/* Bootstrap overrides */
 
 
