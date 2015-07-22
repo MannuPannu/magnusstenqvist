@@ -52,15 +52,51 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 					templateUrl: "app/views/main.html"
 				})
 				.state('main.blog', {
-					url: "/blog",
+					url: "/blog?:filterByTag",
 					templateUrl: "app/views/partials/blog.html",
 					controller: ['$scope', '$http', '$state', '_', 'Notification', '$validation', '$stateParams', blogController],
 					resolve: {
 						LoadItems: function($http, $stateParams){
+							if(typeof ($stateParams.filterByTag) === 'undefined' || $stateParams.filterByTag === '') {
+								return $http.get('/api/blogentries', {cache: true}).success(function (blogEntries) {
+									$stateParams.blogEntries = blogEntries;
+								});
+							} else {
+											
+								return $http({
+										   method: 'GET',
+										   url: '/api/blogentriesbytag',
+										   params: {
+												tag: $stateParams.filterByTag
+										   }
+										}).success(function (blogEntries) {
+											$stateParams.blogEntries = blogEntries;
+										});
+								
+							}
+						},
+						LoadTags: function($http, $stateParams){
+
+							//Todo: Switch below code for a api/gettags which returns all tags from db using some query
 							return $http.get('/api/blogentries', {cache: true}).success(function (blogEntries) {
-								$stateParams.blogEntries = blogEntries;
+								var tags = [];
+								//Populate tags
+								_.each(blogEntries, function(blogEntry) {
+
+									if(blogEntry.tagText && blogEntry.tagText !== ""){
+										//Check so it does not exist already in tag list
+										if(!_.contains(tags, blogEntry.tagText)){
+											 tags.push(blogEntry.tagText);
+										}
+									}
+								});
+
+								$stateParams.tags = tags;	
 							});
 						}
+					},
+					params: {
+						filterByTag:"" 
 					}
 				})
 				.state('main.blog.createpost', {
@@ -70,8 +106,8 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 				.state('main.blog.itemlist', {
 					url: "/itemlist",
 					templateUrl: "app/views/partials/blog/itemlist.html",
-					resolve: {
-							
+					params: {
+						foobar: "boo"
 					}
 				})
 				.state('main.blog.itemdetail', {

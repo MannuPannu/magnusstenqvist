@@ -2,6 +2,8 @@ define("blogController", [],function () {
 		
 		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider, $stateParams) {
 
+			$scope.filterByTag = $stateParams.filterByTag;
+			$scope.tags = $stateParams.tags;
 			//Workaround to reload comments
 			window.DISQUSWIDGETS = undefined;
 			$.getScript("http://" + 'magnusstenqvist' + ".disqus.com/count.js");
@@ -9,7 +11,6 @@ define("blogController", [],function () {
 			$scope.blogEntries = $stateParams.blogEntries;
 			$scope.moment = window.moment;
 
-			$scope.tags = [];
 			$scope.newTagText = "";
 			$scope.editingPost = false;
 
@@ -20,26 +21,6 @@ define("blogController", [],function () {
 				$scope.user  = user;		
 			});
 
-			$scope.populateTags = function() {
-
-				$scope.tags = [];
-				//Populate tags
-				_.each($scope.blogEntries, function(blogEntry) {
-
-					if(blogEntry.tagText && blogEntry.tagText !== ""){
-						//Check so it does not exist already in tag list
-						if(!_.contains($scope.tags, blogEntry.tagText)){
-							 $scope.tags.push(blogEntry.tagText);
-						}
-					}
-				});
-
-				if($scope.tags.length > 0) {
-					$scope.tagText = $scope.tags[0];		
-				}
-			};
-
-			$scope.populateTags();
 			$scope.openCreatePostView = function() {
 				
 				//Placeholder for entry currently edited
@@ -52,7 +33,6 @@ define("blogController", [],function () {
 
 				$scope.editingPost = false;
 
-				$scope.populateTags();
 				$scope.newTagText = "";
 				$scope.tagText = "";
 
@@ -131,25 +111,6 @@ define("blogController", [],function () {
 
 						$state.go("main.blog.itemlist");
 					});
-				}
-			};
-
-			$scope.filterByTag = function(tag) {
-
-				if(tag) {
-					$http({
-						method: 'GET',
-						url: '/api/blogentriesbytag',
-						params: {
-							tag: tag
-						}
-					}).success(function (blogEntries) {
-						$scope.blogEntries = blogEntries;
-					});
-				}
-				else {
-					$scope.populateItemList();	
-					$scope.blogEntriesFilterId = "";
 				}
 			};
 

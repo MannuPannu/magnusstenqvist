@@ -5,7 +5,12 @@
 
 	<div class="pageContainer col-md-3">
 
-		Show only posts with tag:<br /> <span ng-repeat="tag in tags"><a href="#" ng-click="filterByTag(tag)")>{{ tag }}</a> | </span><a href="#" ng-click="filterByTag()">Show all</a>
+		Show only posts with tag:<br /> <span ng-repeat="tag in tags">
+			<a ui-sref="main.blog.itemlist({filterByTag: tag})">{{ tag }}</a> | 
+		</span>
+		
+		<a ui-sref="main.blog.itemlist({filterByTag: ''	})" ui-sref-opts="{ reload: true}">Show all</a>
+
 		<post-archive postlist="blogEntries" ></post-archive> 
 
 		<form class="form-inline">

@@ -25,7 +25,6 @@ module.exports = function(router, passport) {
 	router.post('/api/createblogentry', function(req, res) {
 
 		if(req.isAuthenticated()){
-				
 			return api.CreateOrUpdateBlogEntry(req, res);
 		}
 		else {
