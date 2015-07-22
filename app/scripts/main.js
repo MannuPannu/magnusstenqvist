@@ -18,7 +18,7 @@ require.config({
 		navbarController: 'controllers/navbarController',
 		aboutController: 'controllers/aboutController',
 		blogItemController: 'controllers/blogItemController',
-		angularDisqus: '../../bower_components/angular-disqus/angular-disqus'
+		angularDisqus: '../../bower_components/angular-disqus/angular-disqus.min'
 	 },
 	shim: {
 		'angular' : {
