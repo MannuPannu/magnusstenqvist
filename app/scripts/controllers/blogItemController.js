@@ -1,9 +1,10 @@
 define("blogItemController", [], function() {
 
-	var blogItemController = function($scope, $stateParams) {
-		$scope.blogEntry = $stateParams.blogEntry;		
+	var blogItemController = function($scope, $stateParams, GetItem) {
+		$scope.entryNotFoundMsg = "Blog post not found!";
 
-		console.log($scope.blogEntry);
+		$scope.blogEntry = $stateParams.blogEntry; 
+
 	};
 
 	return blogItemController;

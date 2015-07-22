@@ -10,6 +10,10 @@ module.exports = function(router, passport) {
 		api.GetBlogEntries(req, res);
 	});
 
+	router.get('/api/getblogentrybylink', function(req, res){
+		api.GetBlogEntryByLink(req, res);		
+	});
+
 	router.get('/api/blogentriesbytag', function(req, res){
 		api.GetBlogEntriesByTag(req, res, req.query.tag);
 	});

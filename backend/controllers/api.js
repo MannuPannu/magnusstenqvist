@@ -22,6 +22,19 @@ exports.GetBlogEntries = function(req, res) {
 			});
 };
 
+exports.GetBlogEntryByLink = function(req, res) {
+	return BlogEntry.find({permaLink: req.query.url}).exec(
+			function(err, items) {
+				if(items.length > 0){
+					return res.json(items[0]);
+
+				}
+				else {
+					return res.send(400);	
+				}
+			});
+};
+
 exports.GetBlogEntriesByTag = function(req, res, tag) {
 
 	return BlogEntry.find({tagText: tag}).exec(
@@ -32,7 +45,6 @@ exports.GetBlogEntriesByTag = function(req, res, tag) {
 					items = _.sortBy(items, function(e) {
 						return -(new Date(e.dateText));
 					});
-
 					return res.json(items);
 
 				} else {
@@ -77,7 +89,6 @@ exports.CreateOrUpdateBlogEntry = function(req, res) {
 
 			blogEntry.save(function(err) {
 				if(err){
-					console.log(err);
 					return res.send(400); 		
 				}	
 				return res.send(200);

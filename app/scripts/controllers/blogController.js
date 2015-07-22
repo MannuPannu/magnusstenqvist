@@ -2,7 +2,7 @@ define("blogController", [],function () {
 		
 		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider) {
 			$scope.blogEntries = $scope.blogEntries || [];
-
+			$scope.moment = window.moment;
 
 			$scope.tags = [];
 			$scope.newTagText = "";

@@ -6,10 +6,26 @@ underscore.factory('_', function() {
 	  return window._; //Underscore must already be loaded on the page
 });
 
+
 var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular', 'underscore', 'ui-notification',
 	'validation', 'validation.rule']);
 
-		app.config(['$stateProvider','$urlRouterProvider', 'NotificationProvider', '$validationProvider', function($stateProvider, $urlRouterProvider, NotificationProvider, $validationProvider) {
+		app.config(['$stateProvider','$urlRouterProvider', 'NotificationProvider', '$validationProvider', '$urlMatcherFactoryProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, NotificationProvider, $validationProvider, $urlMatcherFactoryProvider, $locationProvider) {
+
+			var itemType = {
+				encode: function(headerText) {
+					return headerText.toLowerCase().replace(/ö/g, 'o').replace(/ä|å/g, 'a').replace(/\s/g, '-').replace(/[^a-zA-Z0-9-:/]/g, '');
+						},
+				decode: function(value, key) {
+					return headerText.toLowerCase().replace(/ö/g, 'o').replace(/ä|å/g, 'a').replace(/\s/g, '-').replace(/[^a-zA-Z0-9-:/]/g, '');
+						},
+				is: function(headerText) {
+					return headerText.toLowerCase().replace(/ö/g, 'o').replace(/ä|å/g, 'a').replace(/\s/g, '-').replace(/[^a-zA-Z0-9-:/]/g, '');
+					},
+				pattern: /[^#]+/
+			};
+
+			$urlMatcherFactoryProvider.type('item', itemType);
 
 			NotificationProvider.setOptions({
 				positionX: 'left',
@@ -44,20 +60,34 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 					templateUrl: "app/views/partials/blog/itemlist.html",
 				})
 				.state('main.blog.itemdetail', {
-					url: "/itemdetail/:date/:header",
+					url: "/itemdetail/{dateUrl:item}/{headerUrl:item}", 
 					templateUrl: "app/views/partials/blog/itemdetail.html",
-					controller: ['$scope', '$stateParams', blogItemController],
-					params: {
-						blogEntry: null	
-					}
-				})
-				.state('main.blog.itemdetailwithcomment', {
-					url: "/itemdetail/:date/:header/:reply",
-					templateUrl: "app/views/partials/blog/itemdetail.html",
-					controller: ['$scope', '$stateParams', blogItemController],
-					params: {
-						blogEntry: null	
-					}
+					resolve: {
+						GetItem: function($http, $stateParams) {
+
+						function toPermaLink(url){
+							return url.toLowerCase().replace(/ö/g, 'o').replace(/ä|å/g, 'a').replace(/\s/g, '-').replace(/[^a-zA-Z0-9-:/]/g, '');
+						};
+						var dateUrl = $stateParams.dateUrl;
+						var headerUrl = $stateParams.headerUrl; 
+
+						var permaLink = toPermaLink(decodeURI(dateUrl)) + '/' + toPermaLink(decodeURI(headerUrl));
+						return $http({
+							method: 'GET',
+							url: '/api/getblogentrybylink',
+							params:{
+								url: permaLink 	}
+						}).success(function(data){
+							$stateParams.blogEntry = data;		
+							$stateParams.error = false;
+						}).error(function() {
+							$stateParams.error = true;
+						});
+
+						}
+								
+					},
+					controller: ['$scope', '$stateParams', '$http', blogItemController]
 				})
 				.state('main.games', {
 					url: "/games",
@@ -89,9 +119,12 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 
 			var linkFunction = function(scope, element, attributes) {
 
+				scope.showAll = true;
 				scope.tree = {
 						
 				};
+
+				scope.moment = window.moment;
 
 				scope.$watch('postlist', function(){
 
@@ -149,6 +182,20 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 
 					scope.tree = tree;
 				});
+
+
+				scope.toggleShowAll = function() {
+					scope.showAll = !scope.showAll;
+
+					for(var i = 0; i < scope.tree.length; i++){
+						var e = scope.tree[i];		
+						e.show = scope.showAll;
+						for(var j = 0; j < e.months.length; j++){
+							var month = e.months[j];
+							 month.show = scope.showAll;
+						}
+					}
+				};
 			};
 
 			return {
@@ -157,8 +204,7 @@ var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAn
 				transclude: true,
 				link: linkFunction,
 				scope: {
-					postlist: '=postlist',
-					onClickPost: '&onClickPost'
+					postlist: '=postlist'
 				}
 			};
 		});

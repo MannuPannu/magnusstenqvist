@@ -1,18 +1,18 @@
-<h3>Blog archive</h3> <a href="#" ng-click="onClickPost({id: ''})">(Expand all) </a>
+<h3>Blog archive</h3> <a href="#" ng-click="toggleShowAll()"><span ng-bind="showAll ? '(Hide all)' : '(Show all)' "></a>
 
 <ul class="post-archive">
 	<li ng-repeat="year in tree">
 
 		<i ng-class="{'fa fa-caret-down': year.show, 'fa fa-caret-right': !year.show}" style="margin-right: 5px" ng-click="year.show = !year.show" />
-		<a href="#" ng-click="year.show = !year.show">{{ year.year }}</a>
+		<a class="toggleLinks" ng-click="year.show = !year.show">{{ year.year }}</a>
 		<ul ng-show="year.show">
 
 			<li ng-repeat="month in year.months">
 				<i ng-class="{'fa fa-caret-down': month.show, 'fa fa-caret-right': !month.show}" style="margin-right: 5px" ng-click="month.show = !month.show" />
-				<a href="#" ng-click="month.show = !month.show">{{ month.month }} </a>
+				<a class="toggleLinks" ng-click="month.show = !month.show">{{ month.month }} </a>
 					<ul ng-show="month.show">
 						<li ng-repeat="post in month.posts">
-							<a href="#" ng-click="onClickPost({id: post._id})">{{ post.headerText }}</a>
+						<a href="#" ui-sref="main.blog.itemdetail({dateUrl: moment(post.dateText).format('YYYY-MM-DD'), headerUrl: post.headerText})">{{ post.headerText }}</a>
 						</li>
 					</ul>
 			</li>

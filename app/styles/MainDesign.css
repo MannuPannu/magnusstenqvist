@@ -36,7 +36,7 @@ li {
 	color: black;
 }
 
-.headerText:hover {
+.headerTextClickable:hover {
 	font-family: "RobotoSlab";
 	color: #337ab7;
 	text-decoration: none;
@@ -67,6 +67,18 @@ li {
 	color: red;
 }
 
+/* Post archive design */
+.toggleLinks {
+	color: black;
+	cursor: pointer;		
+	text-decoration: none;
+}
+
+.toggleLinks:hover {
+	color: black;
+	cursor: pointer;		
+	text-decoration: none;
+}
 /* Bootstrap overrides */
 
 
