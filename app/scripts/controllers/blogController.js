@@ -1,9 +1,12 @@
 define("blogController", [],function () {
 		
-		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider, $stateParams) {
+		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider, $stateParams, $compile) {
 
 			$scope.filterByTag = $stateParams.filterByTag;
 			$scope.tags = $stateParams.tags;
+			
+			//$scope.test = $compile("<div hljs>var i = 0; i++; </div>")($scope);
+			
 			//Workaround to reload comments
 			window.DISQUSWIDGETS = undefined;
 			$.getScript("http://" + 'magnusstenqvist' + ".disqus.com/count.js");
@@ -44,7 +47,7 @@ define("blogController", [],function () {
 			};
 
 			$scope.createPost = function(form) {
-
+				
 				var isFormValid = false;
 
 				$validationProvider.validate(form)

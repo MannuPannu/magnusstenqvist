@@ -4,7 +4,6 @@ define("blogItemController", [], function() {
 		$scope.entryNotFoundMsg = "Blog post not found!";
 
 		$scope.blogEntry = $stateParams.blogEntry; 
-
 	};
 
 	return blogItemController;

@@ -1,12 +1,15 @@
+/* Main require js config file, here we define which js files requirejs should look at */
+
 require.config({
 	baseUrl: 'app/scripts/',
 	 paths: {
+		 /*Vendor specific */
  	   	angular: '../../bower_components/angular/angular',
  	   	angularUiRouter: '../../bower_components/angular-ui-router/release/angular-ui-router',
         jquery: '../../bower_components/jquery/dist/jquery.min',
         bootstrapJs: '../../bower_components/bootstrap/dist/js/bootstrap.min',
-        angularHighlightjs: '../../bower_components/angular-highlightjs/angular-highlightjs.min',
         highlightjs: '../../bower_components/highlightjs/highlight.pack',
+		angularHighlightjs: '../../bower_components/angular-highlightjs/angular-highlightjs.min',
 		ngSanitize: '../../bower_components/angular-sanitize/angular-sanitize.min',
 		underscore: '../../bower_components/underscore/underscore-min',
 		textAngular: '../../bower_components/textAngular/dist/textAngular.min',
@@ -14,11 +17,21 @@ require.config({
 		notification: '../../bower_components/angular-ui-notification/dist/angular-ui-notification.min',
 		validation: '../../bower_components/angular-validation/dist/angular-validation.min',
 		validationRule: '../../bower_components/angular-validation/dist/angular-validation-rule.min',
+		angularDisqus: '../../bower_components/angular-disqus/angular-disqus.min',
+		
+		/* Controllers */
 		blogController: 'controllers/blogController',
 		navbarController: 'controllers/navbarController',
 		aboutController: 'controllers/aboutController',
 		blogItemController: 'controllers/blogItemController',
-		angularDisqus: '../../bower_components/angular-disqus/angular-disqus.min'
+		
+		/* Directories */
+		postarchive: 'directives/postarchive',
+		
+		/* Setup */
+		routes: 'config/routes',
+		misc: 'config/misc',
+		controllers: 'config/controllers'
 	 },
 	shim: {
 		'angular' : {
@@ -31,7 +44,7 @@ require.config({
             deps: ['jquery']
         },
         angularHighlightjs: {
-            deps: ['angular', 'highlightjs']
+            deps: ['angular']
         },
 		'ngSanitize': {
 			deps: ['angular']
@@ -52,11 +65,8 @@ require.config({
 		'angularDisqus': {
 			deps: ['angular']
 		},
-		// textAngularRangy: {
-		// 	deps: ['angular']
-		// },
 		'textAngular': {
-			deps: ['angular', /*'textAngularRangy'*/, 'textAngularSanitize'],
+			deps: ['angular', 'textAngularSanitize'],
 			exports: 'textAngular'
 		}
 	},
@@ -64,11 +74,10 @@ require.config({
 
 });
 
-require(['angular','jquery', 'bootstrapJs','ngSanitize', 'angularHighlightjs', 'underscore', 'notification',
-		'validation', 'validationRule', 'angularDisqus',
-	//	'angularMoment',/*'textAngularRangy',*/
-		'app'], function (angular) {
-
+require(['angular','jquery', 'bootstrapJs','ngSanitize', 'underscore', 'notification',
+		'validation', 'validationRule', 'angularDisqus', 'angularHighlightjs', 'routes', 'misc', 'controllers', 'app', 'postarchive'], 
+		
+		function (angular) {
 			angular.element(document.getElementsByTagName('html')[0]);
 			angular.element().ready(function() {
 
