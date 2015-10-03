@@ -1,4 +1,16 @@
-﻿pre {
+﻿
+.mainContainer {
+	min-height: 100vh;
+	background-color: white;
+	box-shadow: 0 0 8px grey;
+	padding: 25px;
+}
+
+body {
+	background-color: #F5F5F5;
+}
+
+pre {
     border: none;
 }
 

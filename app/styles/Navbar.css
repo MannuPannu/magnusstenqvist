@@ -1,0 +1,16 @@
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+	color: white;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #fff;
+}
+
+.navbar-inverse .navbar-brand:hover {
+	color: white;
+}
+
+.navbar {
+	margin-bottom: 0px;
+	border-radius: 0px;
+}
