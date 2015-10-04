@@ -8,9 +8,12 @@
 		
 	<span class="dateText" ng-bind="convertText(blogEntry.dateText)"></span>
 
-	(<a ng-bind="blogEntry.tagText"/>)<br />
-		<span class="contentText" ng-bind-html="blogEntry.contentText"></span>
-
-		<div disqus="blogEntry._id"></div>
+	(<a ng-bind="blogEntry.tagText"/>)
+	<br />
+	<br />
+	
+	<div class="contentText" dynamic="blogEntry.contentText"></div>
+	<br />
+	<div disqus="blogEntry._id"></div>
 	<hr />
 </div>

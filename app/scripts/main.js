@@ -27,6 +27,7 @@ require.config({
 		
 		/* Directories */
 		postarchive: 'directives/postarchive',
+		dynamichtml: 'directives/dynamichtml',
 		
 		/* Setup */
 		routes: 'config/routes',
@@ -75,7 +76,7 @@ require.config({
 });
 
 require(['angular','jquery', 'bootstrapJs','ngSanitize', 'underscore', 'notification',
-		'validation', 'validationRule', 'angularDisqus', 'angularHighlightjs', 'routes', 'misc', 'controllers', 'app', 'postarchive'], 
+		'validation', 'validationRule', 'angularDisqus', 'angularHighlightjs', 'routes', 'misc', 'controllers', 'app', 'postarchive', 'dynamichtml'], 
 		
 		function (angular) {
 			angular.element(document.getElementsByTagName('html')[0]);

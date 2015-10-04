@@ -5,8 +5,6 @@ define("blogController", [],function () {
 			$scope.filterByTag = $stateParams.filterByTag;
 			$scope.tags = $stateParams.tags;
 			
-			//$scope.test = $compile("<div hljs>var i = 0; i++; </div>")($scope);
-			
 			//Workaround to reload comments
 			window.DISQUSWIDGETS = undefined;
 			$.getScript("http://" + 'magnusstenqvist' + ".disqus.com/count.js");
