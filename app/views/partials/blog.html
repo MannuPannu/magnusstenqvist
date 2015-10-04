@@ -1,25 +1,34 @@
 <div class="row">
-	<div class="pageContainer col-md-8">
+	<div class="pageContainer" ng-class="{ 'col-md-8': !leftPanelHidden, 'col-md-11': leftPanelHidden}">
 		<div ui-view />
 	</div>
 
-	<div class="pageContainer pageContainerLeft col-md-3">
-
-		Show only posts with tag:<br /> <span ng-repeat="tag in tags">
-			<a ui-sref="main.blog.itemlist({filterByTag: tag})">{{ tag }}</a> | 
-		</span>
+	<div class="pageContainer pageContainerLeft" style="padding-left: 50px" ng-class="{ 'col-md-4': !leftPanelHidden, 'col-md-1': leftPanelHidden}">
+		<!-- TOdo: make this a directive -->
 		
-		<a ui-sref="main.blog.itemlist({filterByTag: ''	})" ui-sref-opts="{ reload: true}">Show all</a>
-
-		<post-archive postlist="blogEntries" ></post-archive> 
-
-		<form class="form-inline">
-			<div class="form-group">
-				<label for="searchFilterId">Search: </label>
-				<input id="searchFilterId" ng-model="searchFilter" class="form-control" />
-			</div>
-		</form>
-		<br /><br />
+		<a href="javascript:void(0);" ng-attr-title="{{ leftPanelHidden ? 'Show blog archive' : 'Hide blog archive panel' }}" 
+			ng-class="{'glyphicon glyphicon-collapse-up': !leftPanelHidden, 'glyphicon glyphicon-collapse-down': leftPanelHidden }" 
+			ng-click="toggleHideLeftPanel()"
+			style="float: right; font-size: 20px; color: grey; margin-bottom: 0px;" aria-hidden="true"></a>
+		
+		<div style="border-top: solid; border-width: 0px; border-color: lightgrey; padding-top: 0px; clear: both;"
+			ng-show="!leftPanelHidden">
+			
+			Show only posts with tag:<br /> <span ng-repeat="tag in tags">
+				<a ui-sref="main.blog.itemlist({filterByTag: tag})">{{ tag }}</a> | 
+			</span>
+			
+			<a ui-sref="main.blog.itemlist({filterByTag: ''	})" ui-sref-opts="{ reload: true}">Show all</a>
+		
+			<post-archive postlist="blogEntries" ></post-archive> 
+		
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="searchFilterId">Search: </label>
+					<input id="searchFilterId" ng-model="searchFilter" class="form-control" />
+				</div>
+			</form>
+		</div>
 	</div>
 
 </div>

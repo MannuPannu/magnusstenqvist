@@ -1,6 +1,6 @@
 define("blogController", [],function () {
 		
-		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider, $stateParams, $compile) {
+		var blogController = function ($scope, $http, $state, _, Notification, $validationProvider, $stateParams, $cookies) {
 
 			$scope.filterByTag = $stateParams.filterByTag;
 			$scope.tags = $stateParams.tags;
@@ -118,7 +118,18 @@ define("blogController", [],function () {
 			$scope.convertText = function(date) {
 				return moment(date).format("dddd Do MMMM YYYY HH:mm");		
 			};
-
+			
+			if($cookies.get('leftPanelHidden')) {
+				$scope.leftPanelHidden = $cookies.get('leftPanelHidden') === "true";	
+			}
+			else {
+				$scope.leftPanelHidden = true;	
+			}
+			 			
+			$scope.toggleHideLeftPanel = function() {
+				$scope.leftPanelHidden = !$scope.leftPanelHidden;
+				$cookies.put('leftPanelHidden', $scope.leftPanelHidden);
+			};
 		};
 	
 		return blogController;

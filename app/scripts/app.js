@@ -8,7 +8,7 @@ define(['angular', 'angularUiRouter', 'textAngular', 'underscore', 'notification
 	});
 
 	var app = angular.module('manneApp', ['ui.router', 'hljs', 'ngSanitize', 'textAngular', 'underscore', 'ui-notification',
-		'validation', 'validation.rule', 'ngDisqus']);
+		'validation', 'validation.rule', 'ngDisqus', 'ngCookies']);
 
 	app.config(['$urlMatcherFactoryProvider',
 		function($urlMatcherFactoryProvider) {

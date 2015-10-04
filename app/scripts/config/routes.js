@@ -10,7 +10,7 @@ define(['app', 'blogController', 'blogItemController', 'aboutController'], funct
 			.state('main.blog', {
 				url: "/blog?:filterByTag",
 				templateUrl: "app/views/partials/blog.html",
-				controller: ['$scope', '$http', '$state', '_', 'Notification', '$validation', '$stateParams','$compile', blogController],
+				controller: ['$scope', '$http', '$state', '_', 'Notification', '$validation', '$stateParams','$cookies', blogController],
 				resolve: {
 					LoadItems: function($http, $stateParams){
 						if(typeof ($stateParams.filterByTag) === 'undefined' || $stateParams.filterByTag === '') {

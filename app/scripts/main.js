@@ -18,6 +18,7 @@ require.config({
 		validation: '../../bower_components/angular-validation/dist/angular-validation.min',
 		validationRule: '../../bower_components/angular-validation/dist/angular-validation-rule.min',
 		angularDisqus: '../../bower_components/angular-disqus/angular-disqus.min',
+		angularCookies: '../../bower_components/angular-cookies/angular-cookies.min',
 		
 		/* Controllers */
 		blogController: 'controllers/blogController',
@@ -57,6 +58,9 @@ require.config({
 		'notification' : {
 			deps: ['angular']
 		},
+		'angularCookies': {
+			deps: ['angular']	
+		},
 		'validation' : {
 			deps: ['angular']
 		},
@@ -76,7 +80,8 @@ require.config({
 });
 
 require(['angular','jquery', 'bootstrapJs','ngSanitize', 'underscore', 'notification',
-		'validation', 'validationRule', 'angularDisqus', 'angularHighlightjs', 'routes', 'misc', 'controllers', 'app', 'postarchive', 'dynamichtml'], 
+		'validation', 'validationRule', 'angularDisqus', 'angularHighlightjs', 'routes', 
+		'misc', 'controllers', 'app', 'postarchive', 'dynamichtml', 'angularCookies'], 
 		
 		function (angular) {
 			angular.element(document.getElementsByTagName('html')[0]);
