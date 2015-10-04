@@ -40,5 +40,8 @@
   },
   "devDependencies": {
     "requirejs": "~2.1.17"
+  },
+  "resolutions": {
+    "angular": "1.4.7"
   }
 }
