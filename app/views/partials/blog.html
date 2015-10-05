@@ -1,9 +1,10 @@
 <div class="row">
-	<div class="pageContainer" ng-class="{ 'col-md-8': !leftPanelHidden, 'col-md-11': leftPanelHidden}">
+	<div class="pageContainer" ng-class="{ 'col-md-8 col-sm-8 col-xs-12': !leftPanelHidden, 'col-md-11 col-sm-11 col-xs-12': leftPanelHidden}">
 		<div ui-view />
 	</div>
 
-	<div class="pageContainer pageContainerLeft" style="padding-left: 50px" ng-class="{ 'col-md-4': !leftPanelHidden, 'col-md-1': leftPanelHidden}">
+	<div class="pageContainer pageContainerLeft" style="padding-left: 50px" 
+		ng-class="{ 'col-md-4 col-sm-4 col-xs-12': !leftPanelHidden, 'col-md-1 col-sm-1 col-xs-12': leftPanelHidden}">
 		<!-- TOdo: make this a directive -->
 		
 		<a href="javascript:void(0);" ng-attr-title="{{ leftPanelHidden ? 'Show blog archive' : 'Hide blog archive panel' }}" 
