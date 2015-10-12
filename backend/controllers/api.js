@@ -14,6 +14,14 @@ exports.GetBlogEntries = function(req, res) {
 						return -(new Date(e.dateText));
 					});
 
+					//Only send a preview of the content
+				    _.each(items, function(e) {
+						console.log(e.contentText);
+						if(e.contentText) {
+							e.contentText = e.contentText.substring(0, 700);
+						}
+					});
+					
 					return res.json(items);
 
 				} else {

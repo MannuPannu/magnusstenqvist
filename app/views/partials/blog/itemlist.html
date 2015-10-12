@@ -14,6 +14,7 @@
 	
 	(<a ng-bind="blogEntry.tagText"/>)<br /><br />
 		<div class="contentText" dynamic="blogEntry.contentText"></div>
+		<a href="#" class="readMoreLink" ui-sref="main.blog.itemdetail({dateUrl: moment(blogEntry.dateText).format('YYYY-MM-DD'), headerUrl: blogEntry.headerText})">Read more...</a>
 		<a ui-sref="main.blog.itemdetail({dateUrl: moment(blogEntry.dateText).format('YYYY-MM-DD'), headerUrl: blogEntry.headerText})" class="commentLink disqus-comment-count" data-disqus-identifier="{{blogEntry._id}}"></a> </h3> 
 	<br />
 	<hr />
